@@ -17,7 +17,7 @@ interface ProjectItem {
 
 const PROJECTS: ProjectItem[] = [
   { title: "Disha", slug: "disha", num: "01", model: "/fairlady-z.glb" },
-  { title: "Lost & Found", slug: "lost-and-found", num: "02", model: "/lost-and-found.glb" },
+  { title: "Lost &\nFound", slug: "lost-and-found", num: "02", model: "/lost-and-found.glb" },
 ];
 
 const COUNT = PROJECTS.length;
@@ -25,7 +25,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 const slideVariants = {
   enter: (dir: number) => ({
-    x: dir > 0 ? "50%" : "-50%",
+    x: dir > 0 ? "40%" : "-40%",
     opacity: 0,
     scale: 0.9,
   }),
@@ -35,7 +35,7 @@ const slideVariants = {
     scale: 1,
   },
   exit: (dir: number) => ({
-    x: dir > 0 ? "-50%" : "50%",
+    x: dir > 0 ? "-40%" : "40%",
     opacity: 0,
     scale: 0.9,
   }),
@@ -77,15 +77,14 @@ export function DesktopProjects() {
   return (
     <div
       ref={containerRef}
-      id="work"
       style={{ height: `${COUNT * 100}vh` }}
     >
       <div className="sticky top-0 w-full h-screen overflow-hidden bg-[#F5F3F0]">
-        {/* Halftone background */}
-        <HalftoneBlobs color="rgba(100, 100, 120, 0.06)" />
+        {/* Halftone background — smaller dots for desktop */}
+        <HalftoneBlobs color="rgba(100, 100, 120, 0.05)" />
 
-        {/* Project number — top left */}
-        <div className="absolute top-0 left-0 right-0 z-[3] px-12 pt-10 flex items-start justify-between pointer-events-none">
+        {/* Project number */}
+        <div className="absolute top-0 left-0 right-0 z-[3] px-12 pt-10 pointer-events-none">
           <AnimatePresence mode="wait">
             <motion.span
               key={`num-d-${active}`}
@@ -93,15 +92,18 @@ export function DesktopProjects() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease }}
-              className="text-black/20 text-xs font-mono tracking-[0.25em] uppercase"
+              className="text-black/18 text-xs font-mono tracking-[0.25em] uppercase"
             >
               {current.num} / {String(COUNT).padStart(2, "0")}
             </motion.span>
           </AnimatePresence>
         </div>
 
-        {/* Giant editorial title — BEHIND model */}
-        <div className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none">
+        {/* Editorial title — sized for desktop */}
+        <div
+          className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none"
+          style={{ paddingBottom: "20%" }}
+        >
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={`title-d-${active}`}
@@ -113,51 +115,24 @@ export function DesktopProjects() {
               transition={{ duration: 0.7, ease }}
               className="w-full flex flex-col items-center select-none"
             >
-              {current.title.split(" ").length <= 2 ? (
+              {current.title.split("\n").map((line, i) => (
                 <span
-                  className="block text-center text-[#7C8CFF] font-serif uppercase leading-[0.85] w-full px-8"
+                  key={i}
+                  className="block text-center text-[#6B6FA3] font-serif uppercase leading-[0.88] w-full px-12"
                   style={{
-                    fontSize: `${Math.min(180 / current.title.length, 20)}vw`,
+                    fontSize: `${Math.min(90 / line.length, 18)}vw`,
                     letterSpacing: "-0.04em",
                   }}
                 >
-                  {current.title}
+                  {line}
                 </span>
-              ) : (
-                current.title.split(" ").reduce<string[][]>((acc, word) => {
-                  // Split into lines of roughly equal length
-                  const mid = Math.ceil(current.title.split(" ").length / 2);
-                  const idx = current.title.split(" ").indexOf(word);
-                  if (idx < mid) {
-                    if (!acc[0]) acc[0] = [];
-                    acc[0].push(word);
-                  } else {
-                    if (!acc[1]) acc[1] = [];
-                    acc[1].push(word);
-                  }
-                  return acc;
-                }, []).map((words, i) => {
-                  const line = words.join(" ");
-                  return (
-                    <span
-                      key={i}
-                      className="block text-center text-[#7C8CFF] font-serif uppercase leading-[0.85] w-full px-8"
-                      style={{
-                        fontSize: `${Math.min(160 / line.length, 18)}vw`,
-                        letterSpacing: "-0.04em",
-                      }}
-                    >
-                      {line}
-                    </span>
-                  );
-                })
-              )}
+              ))}
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* 3D model — center stage */}
-        <div className="absolute top-[10vh] left-[5%] right-[5%] bottom-[16vh] z-[2]">
+        {/* 3D model */}
+        <div className="absolute top-[8vh] left-[18%] right-[18%] bottom-[10vh] z-[2]">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={`model-d-${active}`}
@@ -179,29 +154,6 @@ export function DesktopProjects() {
                 <CarModel src={current.model} />
               </Suspense>
             </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* CTA — bottom center */}
-        <div className="absolute bottom-[5vh] left-0 right-0 z-[4] flex justify-center">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.a
-              key={`cta-d-${active}`}
-              href={`/projects/${current.slug}`}
-              custom={direction}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4, delay: 0.15, ease }}
-              className="group relative flex items-center justify-center gap-3 px-10 py-4 rounded-full bg-[#7C8CFF] text-white text-base font-display font-semibold tracking-wide hover:scale-[1.03] active:scale-[0.97] transition-transform overflow-hidden cursor-pointer"
-              style={{ boxShadow: "0 8px 40px rgba(124,140,255,0.3)" }}
-            >
-              <span className="relative z-10">View Project</span>
-              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="relative z-10 transition-transform group-hover:translate-x-1">
-                <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#7C8CFF] via-[#A7B0FF] to-[#7C8CFF] opacity-0 group-hover:opacity-100 transition-opacity" />
-            </motion.a>
           </AnimatePresence>
         </div>
       </div>

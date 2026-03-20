@@ -56,13 +56,6 @@ const titleVariants = {
   }),
 };
 
-function getTitleSize(line: string, isDesktop: boolean): string {
-  if (isDesktop) {
-    return `${Math.min(120 / line.length, 22)}vw`;
-  }
-  return `${Math.min(200 / line.length, 55)}vw`;
-}
-
 export function FloatingGallery() {
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -87,11 +80,9 @@ export function FloatingGallery() {
       style={{ height: `${COUNT * 100}svh` }}
     >
       <div className="sticky top-0 w-full h-[100svh] overflow-hidden bg-[#F5F3F0]">
-        {/* Halftone background */}
         <HalftoneBlobs color="rgba(100, 100, 120, 0.08)" />
 
-        {/* Project number — top left */}
-        <div className="absolute top-0 left-0 right-0 z-[3] px-5 md:px-12 pt-6 md:pt-10 pointer-events-none">
+        <div className="absolute top-0 left-0 right-0 z-[3] px-5 pt-6 pointer-events-none">
           <AnimatePresence mode="wait">
             <motion.span
               key={`num-${active}`}
@@ -99,14 +90,13 @@ export function FloatingGallery() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease }}
-              className="text-black/20 text-[10px] md:text-xs font-mono tracking-[0.25em] uppercase"
+              className="text-black/20 text-[10px] font-mono tracking-[0.25em] uppercase"
             >
               {current.num} / {String(COUNT).padStart(2, "0")}
             </motion.span>
           </AnimatePresence>
         </div>
 
-        {/* Giant editorial title — BEHIND model, slides horizontally */}
         <div
           className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none"
           style={{ paddingBottom: "45%" }}
@@ -125,36 +115,20 @@ export function FloatingGallery() {
               {current.title.split("\n").map((line, i) => (
                 <span
                   key={i}
-                  className="block text-center text-[#6B6FA3] font-serif uppercase leading-[0.9] w-full px-3 md:px-8"
+                  className="block text-center text-[#6B6FA3] font-serif uppercase leading-[0.9] w-full px-3"
+                  style={{
+                    fontSize: `${Math.min(200 / line.length, 55)}vw`,
+                    letterSpacing: "-0.04em",
+                  }}
                 >
-                  {/* Mobile size */}
-                  <span
-                    className="md:hidden"
-                    style={{
-                      fontSize: getTitleSize(line, false),
-                      letterSpacing: "-0.04em",
-                    }}
-                  >
-                    {line}
-                  </span>
-                  {/* Desktop size */}
-                  <span
-                    className="hidden md:inline"
-                    style={{
-                      fontSize: getTitleSize(line, true),
-                      letterSpacing: "-0.04em",
-                    }}
-                  >
-                    {line}
-                  </span>
+                  {line}
                 </span>
               ))}
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* 3D model — slides horizontally */}
-        <div className="absolute top-[18svh] md:top-[10vh] left-[24px] md:left-[12%] right-[24px] md:right-[12%] bottom-[20svh] md:bottom-[12vh] z-[2]">
+        <div className="absolute top-[18svh] left-[24px] right-[24px] bottom-[20svh] z-[2]">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={`model-${active}`}

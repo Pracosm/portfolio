@@ -1,6 +1,7 @@
 "use client";
 
 import { useDeviceExperience } from "@/hooks/useDeviceExperience";
+import { DesktopHome } from "@/components/desktop/DesktopHome";
 import { MobileHome } from "@/components/mobile/MobileHome";
 
 export function ExperienceSwitch() {
@@ -8,6 +9,5 @@ export function ExperienceSwitch() {
 
   if (!experience) return null;
 
-  // Same components for both — responsive sizing handles the rest
-  return <MobileHome />;
+  return experience === "desktop" ? <DesktopHome /> : <MobileHome />;
 }
