@@ -52,12 +52,12 @@ export function MobileHero() {
             style={{ opacity: nameOpacity, y: nameY }}
           >
             <span
-              className="block text-[11vw] font-display font-medium text-white/70 leading-none"
+              className="block text-[11vw] md:text-[5vw] font-display font-medium text-white/70 leading-none"
               style={{ letterSpacing: "-0.04em" }}
             >
               this is
             </span>
-            <span className="block text-[19vw] font-serif italic text-white leading-[0.85] tracking-tight">
+            <span className="block text-[19vw] md:text-[9vw] font-serif italic text-white leading-[0.85] tracking-tight">
               shardul
             </span>
           </motion.div>
