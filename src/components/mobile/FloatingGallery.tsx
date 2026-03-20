@@ -80,7 +80,7 @@ export function FloatingGallery() {
       style={{ height: `${COUNT * 70}svh` }}
     >
       <div className="sticky top-0 w-full h-[100svh] overflow-hidden bg-[#F5F3F0]">
-        <HalftoneBlobs color="rgba(100, 100, 120, 0.08)" />
+        {/* HalftoneBlobs removed on mobile for performance */}
 
         <div className="absolute top-0 left-0 right-0 z-[3] px-5 pt-6 pointer-events-none">
           <AnimatePresence mode="wait">

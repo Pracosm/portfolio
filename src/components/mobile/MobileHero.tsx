@@ -1,28 +1,22 @@
 "use client";
 
-import { useRef, useCallback } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export function MobileHero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const { scrollYProgress } = useScroll({ target: containerRef });
 
-  const onScrollChange = useCallback((progress: number) => {
-    const video = videoRef.current;
-    if (!video || !video.duration) return;
-    video.currentTime = progress * video.duration;
-  }, []);
-  useMotionValueEvent(scrollYProgress, "change", onScrollChange);
+  const nameOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+  const nameY = useTransform(scrollYProgress, [0.3, 0.8], [0, -50]);
 
-  const nameOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
-  const nameY = useTransform(scrollYProgress, [0.15, 0.5], [0, -50]);
   return (
     <div ref={containerRef} className="relative h-[200svh]">
-      <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#7C8CFF]">
+      <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#6B6FA3]">
         <video
-          ref={videoRef}
+          autoPlay
+          loop
           muted
           playsInline
           preload="auto"
