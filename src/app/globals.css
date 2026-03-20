@@ -108,6 +108,16 @@ html {
   to   { transform: rotateY(360deg) rotateX(-15deg); }
 }
 
+/* ── Gallery marquee ── */
+@keyframes marquee-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
 /* ── Reduced motion fallback ── */
 @media (prefers-reduced-motion: reduce) {
   .noise-overlay::after { display: none; }
