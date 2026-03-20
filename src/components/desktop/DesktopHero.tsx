@@ -28,7 +28,7 @@ export function DesktopHero() {
           playsInline
           preload="auto"
           className="absolute inset-0 w-full h-full object-cover object-center z-0"
-          src="/hero-bg.mp4"
+          src="/hero-bg-hd.mp4"
         />
 
         <div className="absolute inset-x-0 top-0 h-[15%] z-[2] overflow-hidden pointer-events-none">
