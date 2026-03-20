@@ -19,7 +19,7 @@ export function MobileHero() {
   const nameOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
   const nameY = useTransform(scrollYProgress, [0.15, 0.5], [0, -50]);
   return (
-    <div ref={containerRef} className="relative h-[400svh]">
+    <div ref={containerRef} className="relative h-[200svh]">
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#7C8CFF]">
         <video
           ref={videoRef}

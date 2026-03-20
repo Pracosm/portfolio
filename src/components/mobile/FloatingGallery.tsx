@@ -77,7 +77,7 @@ export function FloatingGallery() {
   return (
     <div
       ref={containerRef}
-      style={{ height: `${COUNT * 100}svh` }}
+      style={{ height: `${COUNT * 70}svh` }}
     >
       <div className="sticky top-0 w-full h-[100svh] overflow-hidden bg-[#F5F3F0]">
         <HalftoneBlobs color="rgba(100, 100, 120, 0.08)" />
