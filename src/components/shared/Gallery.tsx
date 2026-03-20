@@ -4,32 +4,22 @@ import { motion } from "framer-motion";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-// Replace these with real images once available in /public/gallery/
 const ROW_1 = [
-  { src: "", label: "Project Alpha", color: "#6B6FA3" },
-  { src: "", label: "Disha UI", color: "#8B6F7A" },
-  { src: "", label: "Brand Identity", color: "#6F8B6B" },
-  { src: "", label: "Lost & Found", color: "#8B7A6B" },
-  { src: "", label: "Dashboard", color: "#6B7F8B" },
-  { src: "", label: "Mobile App", color: "#7A6B8B" },
+  "/gallery/01.jpg", "/gallery/02.jpg", "/gallery/03.jpg", "/gallery/04.jpg",
+  "/gallery/05.jpg", "/gallery/06.jpg", "/gallery/07.jpg", "/gallery/08.jpg",
+  "/gallery/09.jpg", "/gallery/10.jpg",
 ];
 
 const ROW_2 = [
-  { src: "", label: "Photography", color: "#8B6B6B" },
-  { src: "", label: "Social Media", color: "#6B8B7A" },
-  { src: "", label: "Campaign", color: "#7A8B6B" },
-  { src: "", label: "Typography", color: "#6B6B8B" },
-  { src: "", label: "Illustration", color: "#8B7A6F" },
-  { src: "", label: "Packaging", color: "#6F7A8B" },
+  "/gallery/11.jpg", "/gallery/12.jpg", "/gallery/13.jpg", "/gallery/14.jpg",
+  "/gallery/15.jpg", "/gallery/16.jpg", "/gallery/17.jpg", "/gallery/18.jpg",
+  "/gallery/19.jpg", "/gallery/20.jpg",
 ];
 
 const ROW_3 = [
-  { src: "", label: "Poster Design", color: "#7A6F8B" },
-  { src: "", label: "Web Design", color: "#6B8B6F" },
-  { src: "", label: "Motion GFX", color: "#8B6F6B" },
-  { src: "", label: "Editorial", color: "#6F8B8B" },
-  { src: "", label: "Rebranding", color: "#8B8B6B" },
-  { src: "", label: "3D Art", color: "#6B7A7A" },
+  "/gallery/21.jpg", "/gallery/22.jpg", "/gallery/23.jpg", "/gallery/24.jpg",
+  "/gallery/25.jpg", "/gallery/26.jpg", "/gallery/27.jpg", "/gallery/28.jpg",
+  "/gallery/29.jpg",
 ];
 
 function MarqueeRow({
@@ -37,11 +27,10 @@ function MarqueeRow({
   direction = "left",
   speed = 30,
 }: {
-  items: typeof ROW_1;
+  items: string[];
   direction?: "left" | "right";
   speed?: number;
 }) {
-  // Double the items for seamless loop
   const doubled = [...items, ...items];
 
   return (
@@ -52,34 +41,21 @@ function MarqueeRow({
           animation: `marquee-${direction} ${speed}s linear infinite`,
         }}
       >
-        {doubled.map((item, i) => (
+        {doubled.map((src, i) => (
           <div
-            key={`${item.label}-${i}`}
-            className="relative w-[260px] h-[180px] md:w-[340px] md:h-[230px] rounded-2xl overflow-hidden flex-shrink-0 group cursor-pointer"
+            key={`${src}-${i}`}
+            className="relative w-[260px] h-[260px] md:w-[340px] md:h-[340px] rounded-2xl overflow-hidden flex-shrink-0 group cursor-pointer"
             style={{
               transform: `rotate(${(i % 3 - 1) * 1.5}deg)`,
             }}
           >
-            {item.src ? (
-              <img
-                src={item.src}
-                alt={item.label}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-            ) : (
-              <div
-                className="absolute inset-0 transition-transform duration-500 group-hover:scale-110"
-                style={{
-                  background: `linear-gradient(135deg, ${item.color} 0%, ${item.color}88 100%)`,
-                }}
-              />
-            )}
-            {/* Overlay on hover */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-end p-4">
-              <span className="text-white text-sm font-display font-semibold opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                {item.label}
-              </span>
-            </div>
+            <img
+              src={src}
+              alt=""
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
           </div>
         ))}
       </div>
@@ -90,7 +66,6 @@ function MarqueeRow({
 export function Gallery() {
   return (
     <section className="relative bg-[#EEECEA] overflow-hidden py-20 md:py-32">
-      {/* Header */}
       <div className="px-6 md:px-16 mb-12 md:mb-16">
         <motion.p
           initial={{ opacity: 0 }}
@@ -124,7 +99,6 @@ export function Gallery() {
         </motion.div>
       </div>
 
-      {/* Tilted marquee container */}
       <div
         className="relative"
         style={{
@@ -137,7 +111,6 @@ export function Gallery() {
         <MarqueeRow items={ROW_3} direction="left" speed={32} />
       </div>
 
-      {/* Bottom tagline */}
       <motion.p
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
