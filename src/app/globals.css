@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F5F3F0;
+  --foreground: #1a1a1a;
 }
 
 @theme inline {
@@ -10,17 +10,107 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-serif: var(--font-instrument-serif);
+  --font-display: var(--font-instrument-sans);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: #6B6FA3;
+  color: white;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Noise grain overlay */
+.noise-overlay {
+  position: relative;
+}
+
+.noise-overlay::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* ── Comets ── */
+.comet {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 6px 2px rgba(255,255,255,0.9),
+              0 0 14px 5px rgba(255,255,255,0.4);
+  opacity: 0;
+}
+
+/* Trail behind the comet — horizontal, pointing left */
+.comet::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 3px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(to left, rgba(255,255,255,0.7), rgba(255,255,255,0.2) 40%, transparent);
+}
+
+.comet-1 { animation: comet-1 11s linear infinite; animation-delay: 0s; }
+.comet-2 { animation: comet-2 13s linear infinite; animation-delay: 6s; }
+
+.comet-1::after { width: 70px; }
+.comet-2::after { width: 55px; }
+
+/* Straight left to right */
+@keyframes comet-1 {
+  0%   { left: -80px; top: 35%; opacity: 0; }
+  5%   { opacity: 0.9; }
+  90%  { opacity: 0.9; }
+  100% { left: calc(100% + 30px); top: 35%; opacity: 0; }
+}
+
+@keyframes comet-2 {
+  0%   { left: -60px; top: 65%; opacity: 0; }
+  5%   { opacity: 0.75; }
+  90%  { opacity: 0.75; }
+  100% { left: calc(100% + 30px); top: 65%; opacity: 0; }
+}
+
+
+/* ── Gallery cards ── */
+.showcase-shadow-light {
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Spinning 3D object ── */
+.spinning-object {
+  animation: spin-object 8s linear infinite;
+}
+
+@keyframes spin-object {
+  from { transform: rotateY(0deg) rotateX(-15deg); }
+  to   { transform: rotateY(360deg) rotateX(-15deg); }
+}
+
+/* ── Reduced motion fallback ── */
+@media (prefers-reduced-motion: reduce) {
+  .noise-overlay::after { display: none; }
+  .comet { animation: none; display: none; }
+  .spinning-object { animation: none; transform: rotateY(35deg) rotateX(-15deg); }
 }
