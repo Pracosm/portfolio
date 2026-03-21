@@ -12,11 +12,15 @@ export function MobileHero() {
 
   const nameOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
   const nameY = useTransform(scrollYProgress, [0.15, 0.8], [0, -50]);
+  const nameScale = useTransform(scrollYProgress, [0, 0.15], [0.92, 1]);
+  const btnOpacity = useTransform(scrollYProgress, [0.1, 0.25], [0, 1]);
+  const btnY = useTransform(scrollYProgress, [0.1, 0.25], [20, 0]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
   return (
     <div ref={containerRef} className="relative h-[200svh]">
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#6B6FA3]">
-        <video
+        <motion.video
           autoPlay
           loop
           muted
@@ -24,6 +28,7 @@ export function MobileHero() {
           preload="auto"
           className="absolute inset-0 w-full h-full object-cover object-center z-0"
           src="/hero-bg.mp4"
+          style={{ scale: videoScale }}
         />
 
         <div className="absolute inset-x-0 top-0 h-[15%] z-[2] overflow-hidden pointer-events-none">
@@ -42,34 +47,46 @@ export function MobileHero() {
         <div className="absolute inset-0 z-[4] flex flex-col items-center justify-end pb-[12svh]">
           <motion.div
             className="text-center"
-            style={{ opacity: nameOpacity, y: nameY }}
+            style={{ opacity: nameOpacity, y: nameY, scale: nameScale }}
           >
-            <span
+            <motion.span
+              initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="block text-[11vw] font-display font-semibold text-white leading-none drop-shadow-lg"
               style={{ letterSpacing: "-0.04em", textShadow: "0 2px 20px rgba(0,0,0,0.4)" }}
             >
               this is
-            </span>
-            <span
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 1.2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="block text-[19vw] font-serif italic text-white leading-[0.85] tracking-tight drop-shadow-lg"
               style={{ textShadow: "0 2px 30px rgba(0,0,0,0.5)" }}
             >
               shardul
-            </span>
-            <button
-              onClick={() => setResumeOpen(true)}
-              className="mt-6 px-6 py-2.5 rounded-full text-white text-sm font-display font-semibold tracking-[0.15em] uppercase active:scale-95 transition-all"
-              style={{
+            </motion.span>
+          </motion.div>
+          <motion.button
+            onClick={() => setResumeOpen(true)}
+            style={{ opacity: btnOpacity, y: btnY }}
+            whileTap={{ scale: 0.95 }}
+            className="mt-6 px-6 py-2.5 rounded-full text-white text-sm font-display font-semibold tracking-[0.15em] uppercase transition-all"
+            {...{
+              style: {
+                opacity: btnOpacity,
+                y: btnY,
                 background: "rgba(255,255,255,0.15)",
                 backdropFilter: "blur(16px)",
                 WebkitBackdropFilter: "blur(16px)",
                 border: "1px solid rgba(255,255,255,0.35)",
                 boxShadow: "0 0 24px rgba(107,111,163,0.5), 0 0 60px rgba(107,111,163,0.2), inset 0 0 20px rgba(255,255,255,0.08)",
-              }}
-            >
-              View Resume
-            </button>
-          </motion.div>
+              } as React.CSSProperties,
+            }}
+          >
+            View Resume
+          </motion.button>
         </div>
       </div>
 

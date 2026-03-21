@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -39,18 +40,18 @@ export function DesktopAbout() {
               </motion.p>
 
               <motion.h2
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease }}
+                initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.8, ease }}
                 viewport={{ once: true }}
                 className="font-serif italic text-[6vw] leading-[0.85] tracking-tight mb-2"
               >
                 Shardul
               </motion.h2>
               <motion.h2
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1, ease }}
+                initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.8, delay: 0.12, ease }}
                 viewport={{ once: true }}
                 className="font-display font-bold text-[4.5vw] uppercase leading-[0.9] tracking-tight"
               >
@@ -133,11 +134,11 @@ export function DesktopAbout() {
             {skills.map((skill, i) => (
               <motion.span
                 key={skill}
-                initial={{ opacity: 0, y: 16, rotate: 0 }}
-                whileInView={{ opacity: 1, y: 0, rotate: (i % 3 === 0 ? -3 : i % 3 === 1 ? 2 : -1) }}
-                transition={{ duration: 0.5, delay: i * 0.04, ease }}
+                initial={{ opacity: 0, scale: 0.7, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0, rotate: (i % 3 === 0 ? -3 : i % 3 === 1 ? 2 : -1) }}
+                transition={{ duration: 0.5, delay: 0.1 + i * 0.04, type: "spring", stiffness: 250, damping: 18 }}
                 viewport={{ once: true }}
-                whileHover={{ scale: 1.08, rotate: 0 }}
+                whileHover={{ scale: 1.1, rotate: 0, y: -4 }}
                 className="px-7 py-3.5 rounded-full bg-white text-black/70 text-base font-display font-medium tracking-wide cursor-default transition-shadow hover:shadow-lg"
                 style={{
                   boxShadow: "0 2px 16px rgba(0,0,0,0.06)",

@@ -45,17 +45,28 @@ export function Resume({ open, onClose }: { open: boolean; onClose: () => void }
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[200]"
+            style={{
+              background: "rgba(245,243,240,0.6)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+            }}
           />
 
           {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 40, scale: 0.97 }}
-            transition={{ duration: 0.4, ease }}
-            className="fixed inset-4 md:inset-12 z-[201] bg-[#F5F3F0] rounded-3xl overflow-y-auto overscroll-contain"
-            style={{ boxShadow: "0 40px 100px rgba(0,0,0,0.3)" }}
+            initial={{ opacity: 0, y: 60, scale: 0.92, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: 60, scale: 0.92, filter: "blur(8px)" }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-4 md:inset-12 z-[201] rounded-3xl overflow-y-auto overscroll-contain"
+            style={{
+              background: "rgba(255,255,255,0.82)",
+              backdropFilter: "blur(40px) saturate(1.3)",
+              WebkitBackdropFilter: "blur(40px) saturate(1.3)",
+              border: "1px solid rgba(255,255,255,0.5)",
+              boxShadow: "0 24px 80px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.4)",
+            }}
           >
             {/* Close button */}
             <button
@@ -206,7 +217,7 @@ export function Resume({ open, onClose }: { open: boolean; onClose: () => void }
                       <a href="https://instagram.com/shardul.svg" target="_blank" rel="noopener noreferrer" className="block text-black/50 text-sm font-mono hover:text-[#6B6FA3] transition-colors">
                         @shardul.svg
                       </a>
-                      <a href="https://linkedin.com/in/shardul-nandedkar" target="_blank" rel="noopener noreferrer" className="block text-black/50 text-sm font-mono hover:text-[#6B6FA3] transition-colors">
+                      <a href="https://www.linkedin.com/in/sharduln/" target="_blank" rel="noopener noreferrer" className="block text-black/50 text-sm font-mono hover:text-[#6B6FA3] transition-colors">
                         linkedin/shardul-nandedkar
                       </a>
                       <a href="https://behance.net/paraco" target="_blank" rel="noopener noreferrer" className="block text-black/50 text-sm font-mono hover:text-[#6B6FA3] transition-colors">

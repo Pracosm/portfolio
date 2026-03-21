@@ -8,7 +8,7 @@ const socials = [
   { name: "Instagram", handle: "@shardul.svg", href: "https://instagram.com/shardul.svg" },
   { name: "Twitter / X", handle: "@pracosm", href: "https://x.com/pracosm" },
   { name: "Behance", handle: "paraco", href: "https://behance.net/paraco" },
-  { name: "LinkedIn", handle: "shardul-nandedkar", href: "https://linkedin.com/in/shardul-nandedkar" },
+  { name: "LinkedIn", handle: "shardul-nandedkar", href: "https://www.linkedin.com/in/sharduln/" },
 ];
 
 export function DesktopContact() {
@@ -37,23 +37,35 @@ export function DesktopContact() {
               Get in touch
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease }}
-              viewport={{ once: true }}
-              className="mb-12"
-            >
-              <span className="block font-display font-bold text-[5vw] uppercase leading-[0.9] tracking-tight">
+            <div className="mb-12">
+              <motion.span
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, ease }}
+                viewport={{ once: true }}
+                className="block font-display font-bold text-[5vw] uppercase leading-[0.9] tracking-tight"
+              >
                 Let&apos;s{" "}
-              </span>
-              <span className="block font-serif italic text-[5vw] leading-[0.9] tracking-tight text-[#6B6FA3]">
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.08, ease }}
+                viewport={{ once: true }}
+                className="block font-serif italic text-[5vw] leading-[0.9] tracking-tight text-[#6B6FA3]"
+              >
                 build
-              </span>
-              <span className="block font-display font-bold text-[5vw] uppercase leading-[0.9] tracking-tight">
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.16, ease }}
+                viewport={{ once: true }}
+                className="block font-display font-bold text-[5vw] uppercase leading-[0.9] tracking-tight"
+              >
                 together.
-              </span>
-            </motion.div>
+              </motion.span>
+            </div>
 
             {/* Email CTA */}
             <motion.a
@@ -81,10 +93,11 @@ export function DesktopContact() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.06, ease }}
+                  initial={{ opacity: 0, y: 16, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.5, delay: i * 0.08, type: "spring", stiffness: 200 }}
                   viewport={{ once: true }}
+                  whileHover={{ scale: 1.04, y: -3 }}
                   className="flex flex-col gap-2 p-6 rounded-2xl bg-white/[0.05] border border-white/[0.06] hover:bg-white/[0.08] transition-colors cursor-pointer group"
                 >
                   <span className="text-white/70 text-base font-display font-semibold group-hover:text-white transition-colors">

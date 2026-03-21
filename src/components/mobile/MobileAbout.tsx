@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -10,25 +11,32 @@ const skills = [
 ];
 
 export function MobileAbout() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const bgTextX = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+
   return (
     <>
       {/* About — lavender block */}
-      <section className="relative bg-[#6B6FA3] text-white overflow-hidden py-20 px-6">
-        {/* Giant background text */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+      <section ref={sectionRef} className="relative bg-[#6B6FA3] text-white overflow-hidden py-20 px-6">
+        {/* Giant background text — parallax */}
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
+          style={{ x: bgTextX }}
+        >
           <span
             className="text-white/[0.04] font-serif italic whitespace-nowrap select-none"
             style={{ fontSize: "45vw", letterSpacing: "-0.04em" }}
           >
             about
           </span>
-        </div>
+        </motion.div>
 
         <div className="relative z-10">
           <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5, ease }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease }}
             viewport={{ once: true }}
             className="text-white/40 text-[10px] font-mono tracking-[0.3em] uppercase mb-8"
           >
@@ -36,18 +44,18 @@ export function MobileAbout() {
           </motion.p>
 
           <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease }}
+            initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, ease }}
             viewport={{ once: true }}
             className="font-serif italic text-[14vw] leading-[0.85] tracking-tight mb-2"
           >
             Shardul
           </motion.h2>
           <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease }}
+            initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, delay: 0.12, ease }}
             viewport={{ once: true }}
             className="font-display font-bold text-[10vw] uppercase leading-[0.9] tracking-tight mb-10"
           >
@@ -55,9 +63,9 @@ export function MobileAbout() {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15, ease }}
+            transition={{ duration: 0.7, delay: 0.2, ease }}
             viewport={{ once: true }}
             className="text-white/70 text-base font-display leading-relaxed mb-4 max-w-[90%]"
           >
@@ -66,9 +74,9 @@ export function MobileAbout() {
           </motion.p>
 
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease }}
+            transition={{ duration: 0.7, delay: 0.28, ease }}
             viewport={{ once: true }}
             className="text-white/40 text-sm font-display leading-relaxed mb-14"
           >
@@ -78,9 +86,9 @@ export function MobileAbout() {
 
           {/* Age badge */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.25, ease }}
+            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.6, delay: 0.35, type: "spring", stiffness: 200 }}
             viewport={{ once: true }}
             className="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-white/20 mb-6"
           >
@@ -95,9 +103,9 @@ export function MobileAbout() {
       {/* Skills — light block with scattered pills */}
       <section className="relative bg-[#F5F3F0] overflow-hidden py-20 px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease }}
+          transition={{ duration: 0.8, ease }}
           viewport={{ once: true }}
           className="mb-4"
         >
@@ -112,7 +120,7 @@ export function MobileAbout() {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.1, ease }}
+          transition={{ duration: 0.6, delay: 0.15, ease }}
           viewport={{ once: true }}
           className="text-black/35 text-sm font-display leading-relaxed mb-10 max-w-[80%]"
         >
@@ -124,9 +132,9 @@ export function MobileAbout() {
           {skills.map((skill, i) => (
             <motion.span
               key={skill}
-              initial={{ opacity: 0, y: 12, rotate: 0 }}
-              whileInView={{ opacity: 1, y: 0, rotate: (i % 2 === 0 ? -2 : 3) }}
-              transition={{ duration: 0.4, delay: i * 0.05, ease }}
+              initial={{ opacity: 0, scale: 0.7, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0, rotate: (i % 2 === 0 ? -2 : 3) }}
+              transition={{ duration: 0.5, delay: i * 0.06, type: "spring", stiffness: 250, damping: 18 }}
               viewport={{ once: true }}
               className="px-5 py-2.5 rounded-full bg-white text-black/70 text-sm font-display font-medium tracking-wide"
               style={{
