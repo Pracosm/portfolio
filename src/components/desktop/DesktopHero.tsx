@@ -46,29 +46,32 @@ export function DesktopHero() {
           }}
         />
 
-        <div className="absolute inset-0 z-[4] flex flex-col items-center justify-center">
+        <div className="absolute inset-0 z-[4] flex flex-col items-center justify-end pb-[12vh]">
           <motion.div
             className="text-center"
             style={{ opacity: nameOpacity, y: nameY }}
           >
             <span
-              className="block text-[4.5vw] font-display font-medium text-white/70 leading-none"
-              style={{ letterSpacing: "-0.04em" }}
+              className="block text-[4.5vw] font-display font-semibold text-white leading-none drop-shadow-lg"
+              style={{ letterSpacing: "-0.04em", textShadow: "0 2px 20px rgba(0,0,0,0.4)" }}
             >
               this is
             </span>
-            <span className="block text-[8vw] font-serif italic text-white leading-[0.85] tracking-tight">
+            <span
+              className="block text-[8vw] font-serif italic text-white leading-[0.85] tracking-tight drop-shadow-lg"
+              style={{ textShadow: "0 2px 30px rgba(0,0,0,0.5)" }}
+            >
               shardul
             </span>
             <button
               onClick={() => setResumeOpen(true)}
-              className="mt-8 px-8 py-3 rounded-full text-white text-sm font-display font-medium tracking-[0.15em] uppercase hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              className="mt-8 px-8 py-3 rounded-full text-white text-sm font-display font-semibold tracking-[0.15em] uppercase hover:scale-105 active:scale-95 transition-all cursor-pointer"
               style={{
-                background: "rgba(255,255,255,0.08)",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                border: "1px solid rgba(255,255,255,0.25)",
-                boxShadow: "0 0 20px rgba(107,111,163,0.4), 0 0 60px rgba(107,111,163,0.15), inset 0 0 20px rgba(255,255,255,0.05)",
+                background: "rgba(255,255,255,0.15)",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)",
+                border: "1px solid rgba(255,255,255,0.35)",
+                boxShadow: "0 0 24px rgba(107,111,163,0.5), 0 0 60px rgba(107,111,163,0.2), inset 0 0 20px rgba(255,255,255,0.08)",
               }}
             >
               View Resume
