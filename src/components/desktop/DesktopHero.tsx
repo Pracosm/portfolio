@@ -1,11 +1,13 @@
 "use client";
 
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { Resume } from "../shared/Resume";
 
 export function DesktopHero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [resumeOpen, setResumeOpen] = useState(false);
 
   const { scrollYProgress } = useScroll({ target: containerRef });
 
@@ -58,9 +60,17 @@ export function DesktopHero() {
             <span className="block text-[8vw] font-serif italic text-white leading-[0.85] tracking-tight">
               shardul
             </span>
+            <button
+              onClick={() => setResumeOpen(true)}
+              className="mt-8 px-8 py-3 rounded-full border border-white/25 text-white/70 text-sm font-display font-medium tracking-[0.15em] uppercase hover:bg-white/10 hover:text-white hover:border-white/40 active:scale-95 transition-all cursor-pointer"
+            >
+              View Resume
+            </button>
           </motion.div>
         </div>
       </div>
+
+      <Resume open={resumeOpen} onClose={() => setResumeOpen(false)} />
     </div>
   );
 }

@@ -1,10 +1,12 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { Resume } from "../shared/Resume";
 
 export function MobileHero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [resumeOpen, setResumeOpen] = useState(false);
 
   const { scrollYProgress } = useScroll({ target: containerRef });
 
@@ -24,13 +26,11 @@ export function MobileHero() {
           src="/hero-bg.mp4"
         />
 
-        {/* Comets — sky area only */}
         <div className="absolute inset-x-0 top-0 h-[15%] z-[2] overflow-hidden pointer-events-none">
           <div className="comet comet-1" />
           <div className="comet comet-2" />
         </div>
 
-        {/* Gradient overlay */}
         <div
           className="absolute inset-0 z-[1]"
           style={{
@@ -39,7 +39,6 @@ export function MobileHero() {
           }}
         />
 
-        {/* Centered content */}
         <div className="absolute inset-0 z-[4] flex flex-col items-center justify-center">
           <motion.div
             className="text-center"
@@ -54,9 +53,17 @@ export function MobileHero() {
             <span className="block text-[19vw] font-serif italic text-white leading-[0.85] tracking-tight">
               shardul
             </span>
+            <button
+              onClick={() => setResumeOpen(true)}
+              className="mt-6 px-6 py-2.5 rounded-full border border-white/25 text-white/70 text-xs font-display font-medium tracking-[0.15em] uppercase active:scale-95 active:bg-white/10 transition-all"
+            >
+              View Resume
+            </button>
           </motion.div>
         </div>
       </div>
+
+      <Resume open={resumeOpen} onClose={() => setResumeOpen(false)} />
     </div>
   );
 }

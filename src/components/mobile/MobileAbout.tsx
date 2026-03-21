@@ -85,7 +85,9 @@ export function MobileAbout() {
             className="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-white/20 mb-6"
           >
             <span className="text-white/50 text-xs font-mono uppercase tracking-wider">Age</span>
-            <span className="text-white text-lg font-display font-bold">19</span>
+            <span className="text-white text-lg font-display font-bold">
+              {Math.floor((Date.now() - new Date(2005, 6, 12).getTime()) / 31557600000)}
+            </span>
           </motion.div>
         </div>
       </section>
