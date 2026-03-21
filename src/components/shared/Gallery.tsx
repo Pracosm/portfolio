@@ -13,6 +13,8 @@ const ROW_1 = [
   "/gallery/20241012 173204.png",
   "/gallery/460830430 877100087690129_7911353268290737687_n.png",
   "/gallery/460838484 1209009680420527_6210251591662787793_n.png",
+  "/gallery/Gemini_Generated_Image_2tui092tui092tui 1.png",
+  "/gallery/Gemini_Generated_Image_ddixepddixepddix 1.png",
 ];
 
 const ROW_2 = [
@@ -24,6 +26,8 @@ const ROW_2 = [
   "/gallery/Ideas poster.png",
   "/gallery/IMG-20250408-WA0000.png",
   "/gallery/Psychedelic type 🔮.jpg",
+  "/gallery/Gemini_Generated_Image_n1oqrdn1oqrdn1oq 1.png",
+  "/gallery/Gemini_Generated_Image_t55ocut55ocut55o 1.png",
 ];
 
 const ROW_3 = [
@@ -34,6 +38,9 @@ const ROW_3 = [
   "/gallery/Video.png",
   "/gallery/Weave and thread 2-min(1).png",
   "/gallery/Yin yang poster-min.png",
+  "/gallery/Halftone CMYK@2x 1 1.png",
+  "/gallery/Image Dithering@2x 1.png",
+  "/gallery/SuperPong Hero.png",
 ];
 
 function MarqueeRow({
