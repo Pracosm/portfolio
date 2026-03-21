@@ -62,7 +62,14 @@ export function DesktopHero() {
             </span>
             <button
               onClick={() => setResumeOpen(true)}
-              className="mt-8 px-8 py-3 rounded-full border border-white/25 text-white/70 text-sm font-display font-medium tracking-[0.15em] uppercase hover:bg-white/10 hover:text-white hover:border-white/40 active:scale-95 transition-all cursor-pointer"
+              className="mt-8 px-8 py-3 rounded-full text-white text-sm font-display font-medium tracking-[0.15em] uppercase hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              style={{
+                background: "rgba(255,255,255,0.08)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid rgba(255,255,255,0.25)",
+                boxShadow: "0 0 20px rgba(107,111,163,0.4), 0 0 60px rgba(107,111,163,0.15), inset 0 0 20px rgba(255,255,255,0.05)",
+              }}
             >
               View Resume
             </button>
