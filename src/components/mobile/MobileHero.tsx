@@ -70,19 +70,16 @@ export function MobileHero() {
           </motion.div>
           <motion.button
             onClick={() => setResumeOpen(true)}
-            style={{ opacity: btnOpacity, y: btnY }}
             whileTap={{ scale: 0.95 }}
             className="mt-6 px-6 py-2.5 rounded-full text-white text-sm font-display font-semibold tracking-[0.15em] uppercase transition-all"
-            {...{
-              style: {
-                opacity: btnOpacity,
-                y: btnY,
-                background: "rgba(255,255,255,0.15)",
-                backdropFilter: "blur(16px)",
-                WebkitBackdropFilter: "blur(16px)",
-                border: "1px solid rgba(255,255,255,0.35)",
-                boxShadow: "0 0 24px rgba(107,111,163,0.5), 0 0 60px rgba(107,111,163,0.2), inset 0 0 20px rgba(255,255,255,0.08)",
-              } as React.CSSProperties,
+            style={{
+              opacity: btnOpacity as unknown as React.CSSProperties["opacity"],
+              y: btnY,
+              background: "rgba(255,255,255,0.15)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              border: "1px solid rgba(255,255,255,0.35)",
+              boxShadow: "0 0 24px rgba(107,111,163,0.5), 0 0 60px rgba(107,111,163,0.2), inset 0 0 20px rgba(255,255,255,0.08)",
             }}
           >
             View Resume
