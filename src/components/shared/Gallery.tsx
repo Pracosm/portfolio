@@ -5,21 +5,35 @@ import { motion } from "framer-motion";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const ROW_1 = [
-  "/gallery/01.jpg", "/gallery/02.jpg", "/gallery/03.jpg", "/gallery/04.jpg",
-  "/gallery/05.jpg", "/gallery/06.jpg", "/gallery/07.jpg", "/gallery/08.jpg",
-  "/gallery/09.jpg", "/gallery/10.jpg",
+  "/gallery/1738395286393.png",
+  "/gallery/1efdf0168187977.644629f9b454e.png",
+  "/gallery/20240530 132952-min.png",
+  "/gallery/20240922 161656.png",
+  "/gallery/20241012 172544 (3).png",
+  "/gallery/20241012 173204.png",
+  "/gallery/460830430 877100087690129_7911353268290737687_n.png",
+  "/gallery/460838484 1209009680420527_6210251591662787793_n.png",
 ];
 
 const ROW_2 = [
-  "/gallery/11.jpg", "/gallery/12.jpg", "/gallery/13.jpg", "/gallery/14.jpg",
-  "/gallery/15.jpg", "/gallery/16.jpg", "/gallery/17.jpg", "/gallery/18.jpg",
-  "/gallery/19.jpg", "/gallery/20.jpg",
+  "/gallery/All i can think off two.png",
+  "/gallery/AMALGAMATION.png",
+  "/gallery/Blood donation-min.png",
+  "/gallery/Focus.png",
+  "/gallery/History.png",
+  "/gallery/Ideas poster.png",
+  "/gallery/IMG-20250408-WA0000.png",
+  "/gallery/Psychedelic type 🔮.jpg",
 ];
 
 const ROW_3 = [
-  "/gallery/21.jpg", "/gallery/22.jpg", "/gallery/23.jpg", "/gallery/24.jpg",
-  "/gallery/25.jpg", "/gallery/26.jpg", "/gallery/27.jpg", "/gallery/28.jpg",
-  "/gallery/29.jpg",
+  "/gallery/Rise poster.png",
+  "/gallery/Some old photos, I never posted4th is mandatory.png",
+  "/gallery/Type3.png",
+  "/gallery/Video-1.png",
+  "/gallery/Video.png",
+  "/gallery/Weave and thread 2-min(1).png",
+  "/gallery/Yin yang poster-min.png",
 ];
 
 function MarqueeRow({
