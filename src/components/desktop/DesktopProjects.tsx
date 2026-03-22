@@ -103,7 +103,7 @@ export function DesktopProjects() {
         {/* Editorial title — sized for desktop */}
         <div
           className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none"
-          style={{ paddingBottom: "0" }}
+          style={{ paddingBottom: "15%" }}
         >
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div

@@ -100,7 +100,7 @@ export function FloatingGallery() {
 
         <div
           className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none"
-          style={{ paddingBottom: "45%" }}
+          style={{ paddingBottom: "55%" }}
         >
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
