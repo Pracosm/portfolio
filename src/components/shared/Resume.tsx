@@ -28,8 +28,6 @@ const projects = [
   { name: "SuperPong", desc: "AI platform that adds live commentary to your table tennis games by analyzing footage in real-time.", link: "superpong.live", tags: ["AI", "UX"] },
   { name: "Olakh.live", desc: "Uses Gemini's vision model to identify architectural & design elements in photos, and pinpoint location from design cues alone.", link: "olakh.live", tags: ["AI"] },
   { name: "ArcadeDoom.live", desc: "TikTok-style scrolling mini-games platform — play mobile games with just a swipe, like scrolling through reels.", link: "arcadedoom.live", tags: ["Gaming"] },
-  { name: "Disha", desc: "Real-time traffic monitoring dashboard that visualises congestion patterns and optimises signal timing.", link: null, tags: ["UX"] },
-  { name: "Lost & Found", desc: "Recovery platform connecting people with lost belongings through smart tagging.", link: null, tags: ["UX"] },
 ];
 
 const experience = [

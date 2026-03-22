@@ -17,8 +17,9 @@ interface ProjectItem {
 }
 
 const PROJECTS: ProjectItem[] = [
-  { title: "Disha", tagline: "Traffic Dashboard", slug: "disha", num: "01", model: "/fairlady-z.glb" },
-  { title: "Lost & Found", tagline: "Recovery Platform", slug: "lost-and-found", num: "02", model: "/lost-and-found.glb" },
+  { title: "Olakh", tagline: "AI Location Identifier", slug: "olakh", num: "01", model: "/polaroid-camera.glb" },
+  { title: "SuperPong", tagline: "AI Commentary Platform", slug: "superpong", num: "02", model: "/polaroid-camera.glb" },
+  { title: "ArcadeDoom", tagline: "Mobile Mini-Games", slug: "arcadedoom", num: "03", model: "/polaroid-camera.glb" },
 ];
 
 const COUNT = PROJECTS.length;
