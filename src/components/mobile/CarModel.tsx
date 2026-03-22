@@ -4,8 +4,8 @@ import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { useRef, Suspense, useEffect, useMemo } from "react";
-import { Box3, Vector3 } from "three";
-import type { Group } from "three";
+import { Box3, Vector3, DoubleSide } from "three";
+import type { Group, Mesh, MeshStandardMaterial } from "three";
 
 function Model({ src }: { src: string }) {
   const gltf = useLoader(GLTFLoader, src, (loader) => {
@@ -21,16 +21,27 @@ function Model({ src }: { src: string }) {
     scene.position.set(0, 0, 0);
     scene.scale.set(1, 1, 1);
     scene.rotation.set(0, 0, 0);
+    // Fix see-through / clipping: make all materials double-sided
+    scene.traverse((child) => {
+      if ((child as Mesh).isMesh) {
+        const mesh = child as Mesh;
+        const mat = mesh.material as MeshStandardMaterial;
+        if (mat) {
+          mat.side = DoubleSide;
+          mat.depthWrite = true;
+          mat.transparent = false;
+        }
+      }
+    });
     scene.updateMatrixWorld(true);
     const box = new Box3().setFromObject(scene);
     const center = new Vector3();
     const size = new Vector3();
     box.getCenter(center);
     box.getSize(size);
-    // Only centering on the scene — keeps pivot at origin
     scene.position.set(-center.x, -center.y, -center.z);
     const maxDim = Math.max(size.x, size.y, size.z);
-    return { scene, scaleFactor: maxDim > 0 ? 2 / maxDim : 1 };
+    return { scene, scaleFactor: maxDim > 0 ? 1.3 / maxDim : 1 };
   }, [gltf.scene]);
 
   useEffect(() => {
@@ -58,7 +69,7 @@ export function CarModel({ src = "/fairlady-z.glb" }: { src?: string }) {
   return (
     <div className="w-full h-full">
       <Canvas
-        camera={{ position: [2, 1, 2], fov: 50 }}
+        camera={{ position: [2.5, 1.2, 2.5], fov: 45, near: 0.01, far: 100 }}
         style={{ background: "transparent" }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, powerPreference: "high-performance" }}
