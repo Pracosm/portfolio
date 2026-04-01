@@ -10,11 +10,11 @@ export function MobileHero() {
 
   const { scrollYProgress } = useScroll({ target: containerRef });
 
-  const nameOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
-  const nameY = useTransform(scrollYProgress, [0.15, 0.8], [0, -50]);
+  const nameOpacity = useTransform(scrollYProgress, [0, 0.5, 0.8], [1, 1, 0]);
+  const nameY = useTransform(scrollYProgress, [0, 0.8], [0, -50]);
   const nameScale = useTransform(scrollYProgress, [0, 0.15], [0.92, 1]);
-  const btnOpacity = useTransform(scrollYProgress, [0.1, 0.25], [0, 1]);
-  const btnY = useTransform(scrollYProgress, [0.1, 0.25], [20, 0]);
+  const btnOpacity = useTransform(scrollYProgress, [0, 0.05], [0.8, 1]);
+  const btnY = useTransform(scrollYProgress, [0, 0.1], [10, 0]);
   const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
   return (
@@ -67,23 +67,57 @@ export function MobileHero() {
             >
               shardul
             </motion.span>
+
+            {/* Tagline */}
+            <p
+              className="mt-3 font-display"
+              style={{
+                fontSize: 10,
+                letterSpacing: "0.2em",
+                opacity: 0.6,
+                color: "white",
+                textTransform: "uppercase",
+                fontWeight: 400,
+              }}
+            >
+              UX Design · Photography · Visual Storytelling
+            </p>
           </motion.div>
-          <motion.button
-            onClick={() => setResumeOpen(true)}
-            whileTap={{ scale: 0.95 }}
-            className="mt-6 px-6 py-2.5 rounded-full text-white text-sm font-display font-semibold tracking-[0.15em] uppercase transition-all"
+
+          {/* Glass pill buttons */}
+          <motion.div
+            className="mt-6 flex items-center gap-3"
             style={{
               opacity: btnOpacity as unknown as React.CSSProperties["opacity"],
               y: btnY,
-              background: "rgba(255,255,255,0.15)",
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
-              border: "1px solid rgba(255,255,255,0.35)",
-              boxShadow: "0 0 24px rgba(107,111,163,0.5), 0 0 60px rgba(107,111,163,0.2), inset 0 0 20px rgba(255,255,255,0.08)",
             }}
           >
-            View Resume
-          </motion.button>
+            <button
+              onClick={() => setResumeOpen(true)}
+              className="px-6 py-2.5 rounded-full text-white text-sm font-display font-semibold tracking-[0.15em] uppercase transition-all active:scale-95"
+              style={{
+                background: "rgba(255,255,255,0.15)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid rgba(255,255,255,0.2)",
+              }}
+            >
+              View Resume
+            </button>
+            <a
+              href="#projects"
+              className="px-5 py-2.5 rounded-full text-white font-display font-medium tracking-[0.1em] transition-all active:scale-95"
+              style={{
+                background: "rgba(255,255,255,0.15)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid rgba(255,255,255,0.2)",
+                fontSize: 12,
+              }}
+            >
+              ↓ See Work
+            </a>
+          </motion.div>
         </div>
       </div>
 

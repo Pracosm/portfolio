@@ -23,7 +23,7 @@ const staggerItem = {
 
 export function MobileContact() {
   return (
-    <section className="relative bg-[#1a1a22] text-white overflow-hidden">
+    <section className="relative bg-[#1a1a22] text-white overflow-hidden" id="contact">
       {/* Giant background text */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -87,7 +87,7 @@ export function MobileContact() {
           </motion.span>
         </motion.div>
 
-        {/* Email CTA */}
+        {/* Email CTA — glass pill */}
         <motion.a
           href="mailto:shardulnandedkar05@gmail.com"
           initial={{ opacity: 0, y: 16, scale: 0.95 }}
@@ -95,8 +95,14 @@ export function MobileContact() {
           transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 200 }}
           viewport={{ once: true }}
           whileTap={{ scale: 0.96 }}
-          className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-[#6B6FA3] text-white text-sm font-display font-semibold tracking-wide transition-transform mb-14"
-          style={{ boxShadow: "0 8px 32px rgba(107,111,163,0.3)" }}
+          className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full text-white text-sm font-display font-semibold tracking-wide transition-transform mb-14"
+          style={{
+            background: "rgba(255,255,255,0.15)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: "1px solid rgba(255,255,255,0.2)",
+            borderRadius: 999,
+          }}
         >
           shardulnandedkar05@gmail.com
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -104,7 +110,7 @@ export function MobileContact() {
           </svg>
         </motion.a>
 
-        {/* Social grid — staggered */}
+        {/* Social grid */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -125,7 +131,7 @@ export function MobileContact() {
               <span className="text-white/70 text-sm font-display font-semibold">
                 {s.name}
               </span>
-              <span className="text-white/25 text-xs font-mono">
+              <span className="text-white/25 text-xs font-mono break-all">
                 {s.handle}
               </span>
             </motion.a>
