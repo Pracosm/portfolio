@@ -14,6 +14,15 @@
   --font-display: var(--font-instrument-sans);
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -22,11 +31,6 @@ body {
 ::selection {
   background: #6B6FA3;
   color: white;
-}
-
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
 }
 
 /* Noise grain overlay */
@@ -118,9 +122,43 @@ html {
   100% { transform: translateX(0); }
 }
 
+/* ── Page load fade-in ── */
+body {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+body.loaded {
+  opacity: 1;
+}
+
+/* ── Section fade-in on scroll ── */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.section-reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Scatter strip float ── */
+@keyframes scatter-float {
+  0%, 100% { transform: translateY(0) rotate(var(--scatter-rotate, 0deg)); }
+  50%      { transform: translateY(-10px) rotate(var(--scatter-rotate, 0deg)); }
+}
+.scatter-float {
+  animation-name: scatter-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
 /* ── Reduced motion fallback ── */
 @media (prefers-reduced-motion: reduce) {
   .noise-overlay::after { display: none; }
   .comet { animation: none; display: none; }
   .spinning-object { animation: none; transform: rotateY(35deg) rotateX(-15deg); }
+  .scatter-float { animation: none; }
+  .section-reveal { opacity: 1; transform: none; }
+  body { opacity: 1; }
 }

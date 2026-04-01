@@ -17,7 +17,7 @@ interface ProjectItem {
 
 const PROJECTS: ProjectItem[] = [
   { title: "Olakh", slug: "olakh", num: "01", model: "/polaroid-camera.glb" },
-  { title: "Super\nPong", slug: "superpong", num: "02", model: "/ping-pong.glb" },
+  { title: "Super\nPong", slug: "superpong", num: "02", model: "/ping-pong-paddles.glb" },
   { title: "Arcade\nDoom", slug: "arcadedoom", num: "03", model: "/pacman-arcade.glb" },
 ];
 

@@ -74,8 +74,14 @@ export function DesktopContact() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.15, ease }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#6B6FA3] text-white text-base font-display font-semibold tracking-wide hover:scale-[1.03] active:scale-[0.97] transition-transform cursor-pointer"
-              style={{ boxShadow: "0 8px 40px rgba(107,111,163,0.3)" }}
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white text-base font-display font-semibold tracking-wide hover:scale-[1.03] active:scale-[0.97] transition-transform cursor-pointer"
+              style={{
+                background: "rgba(255,255,255,0.15)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid rgba(255,255,255,0.2)",
+                borderRadius: 999,
+              }}
             >
               shardulnandedkar05@gmail.com
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="transition-transform group-hover:translate-x-1">
@@ -97,13 +103,14 @@ export function DesktopContact() {
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.5, delay: i * 0.08, type: "spring", stiffness: 200 }}
                   viewport={{ once: true }}
-                  whileHover={{ scale: 1.04, y: -3 }}
-                  className="flex flex-col gap-2 p-6 rounded-2xl bg-white/[0.05] border border-white/[0.06] hover:bg-white/[0.08] transition-colors cursor-pointer group"
+                  whileHover={{ scale: 1.04, y: -5, boxShadow: "0 12px 32px rgba(0,0,0,0.25)" }}
+                  className="social-card flex flex-col gap-2 p-6 rounded-2xl bg-white/[0.05] border border-white/[0.06] hover:bg-white/[0.08] cursor-pointer group"
+                  style={{ transition: "all 0.25s ease" }}
                 >
                   <span className="text-white/70 text-base font-display font-semibold group-hover:text-white transition-colors">
                     {s.name}
                   </span>
-                  <span className="text-white/25 text-sm font-mono group-hover:text-[#6B6FA3] transition-colors">
+                  <span className="text-white/25 text-sm font-mono group-hover:text-[#6B6FA3] transition-colors break-all">
                     {s.handle}
                   </span>
                 </motion.a>

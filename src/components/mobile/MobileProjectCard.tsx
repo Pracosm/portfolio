@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import type { Project } from "@/content/projects";
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 
 export function MobileProjectCard({ project, index }: Props) {
   return (
+    <Link href={`/projects/${project.slug}`}>
     <motion.article
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -40,5 +42,6 @@ export function MobileProjectCard({ project, index }: Props) {
       </h3>
       <p className="text-neutral-500 text-sm">{project.subtitle}</p>
     </motion.article>
+    </Link>
   );
 }

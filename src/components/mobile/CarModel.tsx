@@ -7,7 +7,7 @@ import { useRef, Suspense, useEffect, useMemo } from "react";
 import { Box3, Vector3, DoubleSide } from "three";
 import type { Group, Mesh, MeshStandardMaterial } from "three";
 
-function Model({ src }: { src: string }) {
+function Model({ src, extraScale = 1 }: { src: string; extraScale?: number }) {
   const gltf = useLoader(GLTFLoader, src, (loader) => {
     const draco = new DRACOLoader();
     draco.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
@@ -41,16 +41,15 @@ function Model({ src }: { src: string }) {
     box.getSize(size);
     scene.position.set(-center.x, -center.y, -center.z);
     const maxDim = Math.max(size.x, size.y, size.z);
-    return { scene, scaleFactor: maxDim > 0 ? 1.3 / maxDim : 1 };
+    return { scene, scaleFactor: maxDim > 0 ? 2.2 / maxDim : 1 };
   }, [gltf.scene]);
 
   useEffect(() => {
     if (groupRef.current) {
       groupRef.current.rotation.y = 0;
-      // Scale on the outer group so it doesn't shift the center
-      groupRef.current.scale.setScalar(scaleFactor);
+      groupRef.current.scale.setScalar(scaleFactor * extraScale);
     }
-  }, [scaleFactor]);
+  }, [scaleFactor, extraScale]);
 
   useFrame((_, delta) => {
     if (groupRef.current) {
@@ -65,7 +64,7 @@ function Model({ src }: { src: string }) {
   );
 }
 
-export function CarModel({ src = "/fairlady-z.glb" }: { src?: string }) {
+export function CarModel({ src = "/fairlady-z.glb", scale = 1 }: { src?: string; scale?: number }) {
   return (
     <div className="w-full h-full">
       <Canvas
@@ -78,7 +77,7 @@ export function CarModel({ src = "/fairlady-z.glb" }: { src?: string }) {
         <directionalLight position={[5, 5, 5]} intensity={1.2} />
         <directionalLight position={[-3, 2, -2]} intensity={0.5} />
         <Suspense fallback={null}>
-          <Model src={src} />
+          <Model src={src} extraScale={scale} />
         </Suspense>
       </Canvas>
     </div>

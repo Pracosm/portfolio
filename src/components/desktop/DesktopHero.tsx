@@ -18,12 +18,32 @@ export function DesktopHero() {
   }, []);
   useMotionValueEvent(scrollYProgress, "change", onScrollChange);
 
-  const nameOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
-  const nameY = useTransform(scrollYProgress, [0.15, 0.5], [0, -50]);
+  const nameOpacity = useTransform(scrollYProgress, [0, 0.5, 0.7], [1, 1, 0]);
+  const nameY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
 
   return (
     <div ref={containerRef} className="relative h-[400vh]">
       <div className="sticky top-0 h-screen overflow-hidden bg-[#6B6FA3]">
+        {/* Floating pill navbar */}
+        <nav
+          className="fixed z-[100] flex items-center gap-6"
+          style={{
+            top: 20,
+            left: "50%",
+            transform: "translateX(-50%)",
+            borderRadius: 999,
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            background: "rgba(255,255,255,0.15)",
+            border: "1px solid rgba(255,255,255,0.2)",
+            padding: "10px 24px",
+          }}
+        >
+          <a href="#projects" className="text-white text-[13px] font-display tracking-wide hover:opacity-80 transition-opacity">Work</a>
+          <a href="#about" className="text-white text-[13px] font-display tracking-wide hover:opacity-80 transition-opacity">About</a>
+          <a href="#contact" className="text-white text-[13px] font-display tracking-wide hover:opacity-80 transition-opacity">Connect</a>
+        </nav>
+
         <video
           ref={videoRef}
           muted
@@ -63,19 +83,54 @@ export function DesktopHero() {
             >
               shardul
             </span>
-            <button
-              onClick={() => setResumeOpen(true)}
-              className="mt-8 px-8 py-3 rounded-full text-white text-sm font-display font-semibold tracking-[0.15em] uppercase hover:scale-105 active:scale-95 transition-all cursor-pointer"
+
+            {/* Tagline */}
+            <p
+              className="mt-4 font-display"
               style={{
-                background: "rgba(255,255,255,0.15)",
-                backdropFilter: "blur(16px)",
-                WebkitBackdropFilter: "blur(16px)",
-                border: "1px solid rgba(255,255,255,0.35)",
-                boxShadow: "0 0 24px rgba(107,111,163,0.5), 0 0 60px rgba(107,111,163,0.2), inset 0 0 20px rgba(255,255,255,0.08)",
+                fontSize: 11,
+                letterSpacing: "0.2em",
+                opacity: 0.6,
+                color: "white",
+                textTransform: "uppercase",
+                fontWeight: 400,
               }}
             >
-              View Resume
-            </button>
+              UX Design · Photography · Visual Storytelling
+            </p>
+
+            {/* Glass pill buttons */}
+            <div className="mt-8 flex items-center justify-center gap-4">
+              <button
+                onClick={() => setResumeOpen(true)}
+                className="text-white text-sm font-display font-semibold tracking-[0.15em] uppercase hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                style={{
+                  background: "rgba(255,255,255,0.15)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: 999,
+                  padding: "12px 28px",
+                }}
+              >
+                View Resume
+              </button>
+              <a
+                href="#projects"
+                className="text-white font-display font-medium tracking-[0.1em] hover:scale-105 active:scale-95 transition-all"
+                style={{
+                  background: "rgba(255,255,255,0.15)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: 999,
+                  padding: "10px 22px",
+                  fontSize: 13,
+                }}
+              >
+                ↓ See Work
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>

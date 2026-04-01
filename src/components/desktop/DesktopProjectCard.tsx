@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import type { Project } from "@/content/projects";
 
 interface Props {
@@ -12,6 +13,7 @@ export function DesktopProjectCard({ project, index }: Props) {
   const isEven = index % 2 === 0;
 
   return (
+    <Link href={`/projects/${project.slug}`}>
     <motion.article
       initial={{ opacity: 0, y: 80 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -73,5 +75,6 @@ export function DesktopProjectCard({ project, index }: Props) {
         </motion.div>
       </div>
     </motion.article>
+    </Link>
   );
 }

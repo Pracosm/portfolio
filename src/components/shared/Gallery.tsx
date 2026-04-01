@@ -128,30 +128,42 @@ function MarqueeRow({
           animation: `marquee-${direction} ${speed}s linear infinite`,
         }}
       >
-        {doubled.map((item, i) => (
-          <motion.div
-            key={`${item.src}-${i}`}
-            className="relative w-[260px] h-[260px] md:w-[340px] md:h-[340px] rounded-2xl overflow-hidden flex-shrink-0 group cursor-pointer"
-            style={{
-              transform: `rotate(${(i % 3 - 1) * 1.5}deg)`,
-            }}
-            whileHover={{ scale: 1.06, rotate: 0, zIndex: 10 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            onClick={() => onItemClick(item)}
-          >
-            <img
-              src={item.src}
-              alt=""
-              loading="lazy"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-115"
-            />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-500 flex items-end p-4">
-              <span className="px-3 py-1 rounded-full bg-white/90 text-black/70 text-[10px] font-display font-semibold tracking-[0.1em] uppercase opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+        {doubled.map((item, i) => {
+          const rotation = i % 3 === 0 ? -2.5 : i % 3 === 1 ? 2 : -1;
+          return (
+            <motion.div
+              key={`${item.src}-${i}`}
+              className="gallery-card relative w-[260px] h-[260px] md:w-[340px] md:h-[340px] flex-shrink-0 group cursor-pointer"
+              style={{
+                transform: `rotate(${rotation}deg)`,
+                background: "white",
+                padding: "5px 5px 16px 5px",
+                borderRadius: 10,
+                boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
+              }}
+              whileHover={{ scale: 1.04, rotate: 0, zIndex: 10, boxShadow: "0 8px 28px rgba(0,0,0,0.18)" }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              onClick={() => onItemClick(item)}
+            >
+              <div className="relative w-full h-full rounded-[6px] overflow-hidden">
+                <img
+                  src={item.src}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-115"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-500" />
+              </div>
+              {/* Fade-in label chip */}
+              <span
+                className="absolute bottom-[20px] left-[13px] px-[10px] py-[3px] rounded-full text-white text-[10px] font-display font-semibold tracking-[0.1em] uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                style={{ background: "rgba(0,0,0,0.7)" }}
+              >
                 {item.tag}
               </span>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
