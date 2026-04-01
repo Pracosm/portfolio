@@ -10,11 +10,11 @@ export function MobileHero() {
 
   const { scrollYProgress } = useScroll({ target: containerRef });
 
-  const nameOpacity = useTransform(scrollYProgress, [0, 0.5, 0.8], [1, 1, 0]);
-  const nameY = useTransform(scrollYProgress, [0, 0.8], [0, -50]);
+  const nameOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
+  const nameY = useTransform(scrollYProgress, [0.15, 0.8], [0, -50]);
   const nameScale = useTransform(scrollYProgress, [0, 0.15], [0.92, 1]);
-  const btnOpacity = useTransform(scrollYProgress, [0, 0.05], [0.8, 1]);
-  const btnY = useTransform(scrollYProgress, [0, 0.1], [10, 0]);
+  const btnOpacity = useTransform(scrollYProgress, [0.1, 0.25], [0, 1]);
+  const btnY = useTransform(scrollYProgress, [0.1, 0.25], [20, 0]);
   const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
   return (
