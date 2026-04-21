@@ -5,8 +5,10 @@ import { DesktopHero } from "./DesktopHero";
 import { ScatterStrip } from "./ScatterStrip";
 import { DesktopProjects } from "./DesktopProjects";
 import { Gallery } from "../shared/Gallery";
+import { MarqueeTicker } from "./MarqueeTicker";
 import { DesktopAbout } from "./DesktopAbout";
 import { DesktopContact } from "./DesktopContact";
+import { CustomCursor } from "./CustomCursor";
 
 export function DesktopHome() {
   useEffect(() => {
@@ -32,10 +34,12 @@ export function DesktopHome() {
 
   return (
     <div className="min-h-screen bg-[#F5F3F0] text-black selection:bg-[#6B6FA3] selection:text-white noise-overlay">
+      <CustomCursor />
       <DesktopHero />
       <ScatterStrip />
       <DesktopProjects />
       <div className="section-reveal"><Gallery /></div>
+      <MarqueeTicker />
       <div className="section-reveal"><DesktopAbout /></div>
       <div className="section-reveal"><DesktopContact /></div>
     </div>

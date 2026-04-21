@@ -13,7 +13,11 @@ export function DesktopProjectCard({ project, index }: Props) {
   const isEven = index % 2 === 0;
 
   return (
-    <Link href={`/projects/${project.slug}`}>
+    <Link
+      href={project.externalUrl || `/projects/${project.slug}`}
+      target={project.externalUrl ? "_blank" : undefined}
+      rel={project.externalUrl ? "noopener noreferrer" : undefined}
+    >
     <motion.article
       initial={{ opacity: 0, y: 80 }}
       whileInView={{ opacity: 1, y: 0 }}

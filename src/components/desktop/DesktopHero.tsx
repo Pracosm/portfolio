@@ -101,8 +101,14 @@ export function DesktopHero() {
 
             {/* Glass pill buttons */}
             <div className="mt-8 flex items-center justify-center gap-4">
-              <button
-                onClick={() => setResumeOpen(true)}
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setResumeOpen(true);
+                }}
                 className="text-white text-sm font-display font-semibold tracking-[0.15em] uppercase hover:scale-105 active:scale-95 transition-all cursor-pointer"
                 style={{
                   background: "rgba(255,255,255,0.15)",
@@ -114,7 +120,7 @@ export function DesktopHero() {
                 }}
               >
                 View Resume
-              </button>
+              </a>
               <a
                 href="#projects"
                 className="text-white font-display font-medium tracking-[0.1em] hover:scale-105 active:scale-95 transition-all"
@@ -132,6 +138,34 @@ export function DesktopHero() {
               </a>
             </div>
           </motion.div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div
+          className="scroll-indicator absolute z-[4] flex flex-col items-center gap-1"
+          style={{
+            bottom: 32,
+            left: "50%",
+            transform: "translateX(-50%)",
+            opacity: 0,
+            animation: "fadeIn 0.5s ease forwards",
+            animationDelay: "2s",
+          }}
+        >
+          <span
+            className="font-mono"
+            style={{
+              fontSize: 9,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.6)",
+            }}
+          >
+            Scroll
+          </span>
+          <span className="scroll-arrow" style={{ color: "rgba(255,255,255,0.6)", fontSize: 14 }}>
+            ↓
+          </span>
         </div>
       </div>
 

@@ -1,40 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SiFigma, SiFramer, SiBlender, SiNextdotjs, SiReact, SiTypescript, SiTailwindcss, SiVercel, SiClaude } from "react-icons/si";
+import { VscVscode } from "react-icons/vsc";
+import type { IconType } from "react-icons";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-const primarySkills = [
-  { name: "UX Design", level: 3 },
-  { name: "Visual Design", level: 3 },
-  { name: "Figma", level: 3 },
-  { name: "Interaction Design", level: 2 },
-  { name: "Design Systems", level: 2 },
+const tools: { name: string; color: string; Icon: IconType }[] = [
+  { name: "Figma", color: "#A259FF", Icon: SiFigma },
+  { name: "Framer", color: "#0055FF", Icon: SiFramer },
+  { name: "Claude", color: "#D97757", Icon: SiClaude },
+  { name: "Blender", color: "#EA7600", Icon: SiBlender },
+  { name: "Next.js", color: "#000000", Icon: SiNextdotjs },
+  { name: "React", color: "#61DAFB", Icon: SiReact },
+  { name: "TypeScript", color: "#3178C6", Icon: SiTypescript },
+  { name: "Tailwind", color: "#06B6D4", Icon: SiTailwindcss },
+  { name: "Vercel", color: "#000000", Icon: SiVercel },
+  { name: "VS Code", color: "#007ACC", Icon: VscVscode },
 ];
-
-const secondarySkills = [
-  { name: "Photography", level: 2 },
-  { name: "Prototyping", level: 2 },
-  { name: "User Research", level: 2 },
-  { name: "Wireframing", level: 1 },
-  { name: "Multimedia", level: 1 },
-];
-
-function Dots({ filled, total = 3 }: { filled: number; total?: number }) {
-  return (
-    <span className="inline-flex gap-[3px] ml-2">
-      {Array.from({ length: total }, (_, i) => (
-        <span
-          key={i}
-          className="inline-block w-[5px] h-[5px] rounded-full"
-          style={{
-            background: i < filled ? "currentColor" : "rgba(128,128,128,0.25)",
-          }}
-        />
-      ))}
-    </span>
-  );
-}
 
 const WORK_THUMBS = [
   "/gallery/1738395286393.png",
@@ -43,12 +27,60 @@ const WORK_THUMBS = [
   "/gallery/Rise poster.png",
 ];
 
+const bentoItems = [
+  {
+    title: "UX Design",
+    description: "Interfaces that feel obvious",
+    span: "col-span-2",
+    bg: "#1a1a1a",
+    color: "white",
+  },
+  {
+    title: "Figma",
+    description: "2+ years",
+    span: "",
+    bg: "white",
+    color: "#1a1a1a",
+  },
+  {
+    title: "Photography",
+    description: "Capturing the moment",
+    span: "",
+    bg: "white",
+    color: "#1a1a1a",
+    image: "/gallery/20240922 161656.png",
+  },
+  {
+    title: "Visual Design",
+    description: "Pixel-perfect craft",
+    span: "",
+    bg: "white",
+    color: "#1a1a1a",
+  },
+  {
+    title: "Prototyping",
+    description: "From idea to interaction",
+    span: "",
+    bg: "white",
+    color: "#1a1a1a",
+  },
+  {
+    title: "Design Systems",
+    description: "Scalable foundations",
+    span: "",
+    bg: "#1a1a1a",
+    color: "white",
+  },
+];
+
 export function DesktopAbout() {
+  const age = Math.floor((Date.now() - new Date(2005, 6, 12).getTime()) / 31557600000);
+
   return (
     <>
       {/* About — cream block */}
       <section className="relative bg-[#F5F3F0] text-[#1a1a1a] overflow-hidden" id="about">
-        {/* Giant background text — reduced */}
+        {/* Giant background text */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
           <span
             className="font-serif italic whitespace-nowrap select-none"
@@ -78,36 +110,34 @@ export function DesktopAbout() {
             Who I am
           </motion.p>
 
-          {/* Single row: photo | name+age | bio */}
-          <div className="grid grid-cols-[auto_1fr_1.4fr] gap-12 items-start">
-            {/* Portrait */}
+          {/* Two-column: left (photo + name + pills) | right (bio + stats) */}
+          <div className="grid grid-cols-[auto_1fr] gap-12 items-stretch">
+            {/* Left column — photo, name, age, open to work */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1, ease }}
               viewport={{ once: true }}
+              className="flex flex-col gap-4"
             >
               <img
                 src="/portrait.jpg"
                 alt="Shardul Nandedkar"
                 className="object-cover"
                 style={{
-                  width: 200,
-                  height: 260,
+                  width: 260,
+                  height: 360,
                   objectPosition: "top",
-                  borderRadius: 16,
+                  borderRadius: 12,
                 }}
               />
-            </motion.div>
 
-            {/* Name + age */}
-            <div>
               <motion.h2
                 initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
                 whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.8, ease }}
                 viewport={{ once: true }}
-                className="font-serif italic text-[4.5vw] leading-[0.85] tracking-tight mb-1 text-[#1a1a1a]"
+                className="font-serif italic text-[2.8rem] leading-[0.85] tracking-tight text-[#1a1a1a]"
               >
                 Shardul
               </motion.h2>
@@ -116,7 +146,7 @@ export function DesktopAbout() {
                 whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.8, delay: 0.12, ease }}
                 viewport={{ once: true }}
-                className="font-display font-bold text-[3.2vw] uppercase leading-[0.9] tracking-tight text-[#1a1a1a]"
+                className="font-display font-bold text-[2rem] uppercase leading-[0.9] tracking-tight text-[#1a1a1a] -mt-2"
               >
                 Nandedkar
               </motion.h2>
@@ -127,7 +157,7 @@ export function DesktopAbout() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2, ease }}
                 viewport={{ once: true }}
-                className="inline-flex items-center gap-3 mt-6"
+                className="inline-flex items-center gap-3 self-start"
                 style={{
                   background: "#1a1a1a",
                   color: "white",
@@ -138,14 +168,43 @@ export function DesktopAbout() {
                 }}
               >
                 <span className="text-white/60 text-xs font-mono uppercase tracking-wider">Age</span>
-                <span className="text-white text-lg font-display font-bold">
-                  {Math.floor((Date.now() - new Date(2005, 6, 12).getTime()) / 31557600000)}
-                </span>
+                <span className="text-white text-lg font-display font-bold">{age}</span>
               </motion.div>
-            </div>
 
-            {/* Bio */}
-            <div className="pt-2">
+              {/* Open to Work pill */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.3, ease }}
+                viewport={{ once: true }}
+                className="inline-flex items-center gap-2 self-start"
+                style={{
+                  border: "1px solid #1a1a1a",
+                  borderRadius: 999,
+                  padding: "6px 16px",
+                  fontSize: 11,
+                  fontWeight: 500,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                }}
+              >
+                <span
+                  className="open-to-work-dot"
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    background: "#22c55e",
+                    display: "inline-block",
+                    flexShrink: 0,
+                  }}
+                />
+                <span className="font-mono">Open to Work</span>
+              </motion.div>
+            </motion.div>
+
+            {/* Right column — bio + stats */}
+            <div className="pt-2 flex flex-col">
               <motion.p
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -167,113 +226,170 @@ export function DesktopAbout() {
                 From crafting seamless interactions to capturing moments behind the camera —
                 bringing ideas to life, pixel by pixel.
               </motion.p>
+
+              {/* Stats strip */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3, ease }}
+                viewport={{ once: true }}
+                className="flex gap-8 mt-10 pt-8"
+                style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}
+              >
+                {[
+                  { number: "2+", label: "Yrs Experience" },
+                  { number: "3", label: "Case Studies" },
+                  { number: `${age}`, label: "Years Old" },
+                ].map((stat, i) => (
+                  <div key={i} className="flex flex-col" style={i > 0 ? { paddingLeft: 32, borderLeft: "1px solid rgba(0,0,0,0.08)" } : {}}>
+                    <span className="text-[2rem] font-display font-bold leading-none text-[#1a1a1a]">
+                      {stat.number}
+                    </span>
+                    <span
+                      className="font-mono mt-1"
+                      style={{
+                        fontSize: 11,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.1em",
+                        opacity: 0.5,
+                      }}
+                    >
+                      {stat.label}
+                    </span>
+                  </div>
+                ))}
+              </motion.div>
+
+              {/* Toolkit icons */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4, ease }}
+                viewport={{ once: true }}
+                className="mt-10"
+              >
+                <span
+                  className="font-mono block mb-4"
+                  style={{
+                    fontSize: 10,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.2em",
+                    opacity: 0.35,
+                  }}
+                >
+                  My Toolkit
+                </span>
+                <div className="flex flex-wrap gap-4">
+                  {tools.map((tool, i) => (
+                    <motion.div
+                      key={tool.name}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.4 + i * 0.04,
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                      }}
+                      viewport={{ once: true }}
+                      whileHover={{ y: -2, scale: 1.15 }}
+                      className="group relative"
+                      style={{ color: tool.color, cursor: "default" }}
+                    >
+                      <tool.Icon size={22} />
+                      <span
+                        className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-[#1a1a1a] text-white text-[9px] font-mono tracking-wider uppercase whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+                      >
+                        {tool.name}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Skills — What I Bring */}
-      <section className="relative overflow-hidden px-16" style={{ paddingTop: 80, paddingBottom: 48, background: "#F5F3F0", isolation: "isolate" }}>
+      {/* Skills — Bento Grid */}
+      <section
+        className="relative overflow-hidden px-16"
+        style={{ paddingTop: 80, paddingBottom: 80, background: "#F5F3F0", isolation: "isolate", height: "auto" }}
+      >
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-[1fr_auto] gap-16 items-start">
-            {/* Left — heading, subtext, pills */}
-            <div>
+          {/* Section heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease }}
+            viewport={{ once: true }}
+            className="mb-4"
+          >
+            <span className="font-display font-bold text-[5vw] uppercase leading-[0.9] tracking-tight text-black/85">
+              What I{" "}
+            </span>
+            <span className="font-serif italic text-[5vw] leading-[0.9] tracking-tight text-[#6B6FA3]">
+              bring
+            </span>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.1, ease }}
+            viewport={{ once: true }}
+            className="font-display leading-relaxed mb-10"
+            style={{ fontSize: 13, color: "rgba(0,0,0,0.45)", maxWidth: 380 }}
+          >
+            All your design needs in one place with the assurance of highest excellence and usability.
+          </motion.p>
+
+          {/* Bento Grid */}
+          <div className="grid grid-cols-3 gap-4">
+            {bentoItems.map((item, i) => (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease }}
+                key={item.title}
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.08 * i, type: "spring", stiffness: 200, damping: 20 }}
                 viewport={{ once: true }}
+                whileHover={{ y: -4, boxShadow: "0 8px 30px rgba(0,0,0,0.1)" }}
+                className={`relative overflow-hidden ${item.span}`}
+                style={{
+                  background: item.bg,
+                  color: item.color,
+                  border: item.bg === "white" ? "1px solid rgba(0,0,0,0.1)" : "none",
+                  borderRadius: 16,
+                  padding: 24,
+                  minHeight: 140,
+                  transition: "box-shadow 0.3s ease, transform 0.3s ease",
+                }}
               >
-                <span className="font-display font-bold text-[5vw] uppercase leading-[0.9] tracking-tight text-black/85">
-                  What I{" "}
-                </span>
-                <span className="font-serif italic text-[5vw] leading-[0.9] tracking-tight text-[#6B6FA3]">
-                  bring
-                </span>
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover opacity-30"
+                    style={{ borderRadius: 16 }}
+                  />
+                )}
+                <div className="relative z-10 flex flex-col h-full justify-end">
+                  <span className="font-display font-bold text-lg tracking-tight">
+                    {item.title}
+                  </span>
+                  <span
+                    className="font-display mt-1"
+                    style={{
+                      fontSize: 13,
+                      opacity: item.bg === "white" ? 0.5 : 0.6,
+                    }}
+                  >
+                    {item.description}
+                  </span>
+                </div>
               </motion.div>
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.1, ease }}
-                viewport={{ once: true }}
-                className="font-display leading-relaxed mt-4 mb-10"
-                style={{ fontSize: 13, color: "rgba(0,0,0,0.45)", maxWidth: 380 }}
-              >
-                All your design needs in one place with the assurance of highest excellence and usability.
-              </motion.p>
-
-              {/* Skill pills — left-aligned, wrapped */}
-              <div className="flex flex-wrap gap-[10px]" style={{ maxWidth: 700 }}>
-                {/* Primary — dark filled */}
-                {primarySkills.map((skill, i) => (
-                  <motion.span
-                    key={skill.name}
-                    initial={{ opacity: 0, scale: 0.7, y: 20 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 + i * 0.04, type: "spring", stiffness: 250, damping: 18 }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.06, y: -3 }}
-                    className="inline-flex items-center rounded-full font-display font-medium tracking-wide cursor-default"
-                    style={{
-                      background: "#1a1a1a",
-                      color: "white",
-                      borderRadius: 999,
-                      padding: "8px 20px",
-                      fontSize: 13,
-                      transition: "transform 0.2s ease",
-                    }}
-                  >
-                    {skill.name}
-                    <Dots filled={skill.level} />
-                  </motion.span>
-                ))}
-                {/* Secondary — outlined */}
-                {secondarySkills.map((skill, i) => (
-                  <motion.span
-                    key={skill.name}
-                    initial={{ opacity: 0, scale: 0.7, y: 20 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 + i * 0.04, type: "spring", stiffness: 250, damping: 18 }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.06, y: -3, backgroundColor: "#1a1a1a", color: "#ffffff" }}
-                    className="inline-flex items-center rounded-full font-display font-medium tracking-wide cursor-default"
-                    style={{
-                      background: "transparent",
-                      border: "1px solid rgba(0,0,0,0.2)",
-                      color: "#1a1a1a",
-                      borderRadius: 999,
-                      padding: "8px 20px",
-                      fontSize: 13,
-                      transition: "all 0.2s ease",
-                    }}
-                  >
-                    {skill.name}
-                    <Dots filled={skill.level} />
-                  </motion.span>
-                ))}
-              </div>
-            </div>
-
-            {/* Right — 2x2 work thumbnail grid */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, ease }}
-              viewport={{ once: true }}
-              className="grid grid-cols-2 gap-2 self-end"
-            >
-              {WORK_THUMBS.map((src, i) => (
-                <img
-                  key={i}
-                  src={src}
-                  alt=""
-                  loading="lazy"
-                  className="object-cover"
-                  style={{ width: 80, height: 80, borderRadius: 8 }}
-                />
-              ))}
-            </motion.div>
+            ))}
           </div>
         </div>
       </section>

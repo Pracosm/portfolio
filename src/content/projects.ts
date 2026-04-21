@@ -19,6 +19,7 @@ export const projects: Project[] = [
     year: "2025",
     thumbnail: "/projects/01.jpg",
     color: "#E63946",
+    externalUrl: "https://olakh.live",
     brief:
       "A deep dive into rethinking how users interact with location-based AI systems through elegant, intuitive design.",
   },
@@ -42,6 +43,7 @@ export const projects: Project[] = [
     year: "2024",
     thumbnail: "/projects/03.jpg",
     color: "#2A9D8F",
+    externalUrl: "https://arcadedoom.live",
     brief:
       "End-to-end design for a mobile mini-games platform — from brand identity through to a polished, shipped experience.",
   },

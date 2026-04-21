@@ -14,12 +14,13 @@ interface ProjectItem {
   slug: string;
   num: string;
   model: string;
+  externalUrl?: string;
 }
 
 const PROJECTS: ProjectItem[] = [
-  { title: "Olakh", tagline: "AI Location Identifier", slug: "olakh", num: "01", model: "/polaroid-camera.glb" },
-  { title: "SuperPong", tagline: "AI Commentary Platform", slug: "superpong", num: "02", model: "/ping-pong-paddles.glb" },
-  { title: "ArcadeDoom", tagline: "Mobile Mini-Games", slug: "arcadedoom", num: "03", model: "/pacman-arcade.glb" },
+  { title: "Olakh", tagline: "AI Location Identifier", slug: "olakh", num: "01", model: "/polaroid-camera.glb", externalUrl: "https://olakh.live" },
+  { title: "SuperPong", tagline: "AI Commentary Platform", slug: "superpong", num: "02", model: "/ping-pong-paddles.glb", externalUrl: "https://superpongai.vercel.app/" },
+  { title: "ArcadeDoom", tagline: "Mobile Mini-Games", slug: "arcadedoom", num: "03", model: "/pacman-arcade.glb", externalUrl: "https://arcadedoom.live" },
 ];
 
 const COUNT = PROJECTS.length;
@@ -162,7 +163,9 @@ export function SpotlightStage() {
         <AnimatePresence mode="wait">
           <motion.a
             key={`cta-a-${active}`}
-            href={`/projects/${current.slug}`}
+            href={current.externalUrl || `/projects/${current.slug}`}
+            target={current.externalUrl ? "_blank" : undefined}
+            rel={current.externalUrl ? "noopener noreferrer" : undefined}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}

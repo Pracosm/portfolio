@@ -153,6 +153,90 @@ body.loaded {
   animation-iteration-count: infinite;
 }
 
+/* ── Marquee ticker ── */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-ticker {
+  display: flex;
+  animation: marquee-scroll 30s linear infinite;
+}
+
+/* ── Open to work pulse ── */
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+  50%      { box-shadow: 0 0 0 4px rgba(34,197,94,0.3); }
+}
+.open-to-work-dot {
+  animation: pulse-green 2s ease-in-out infinite;
+}
+
+/* ── Scroll indicator ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes bounce-arrow {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+.scroll-arrow {
+  animation: bounce-arrow 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ── Custom cursor ── */
+#custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: #1a1a1a;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
+  mix-blend-mode: difference;
+}
+#custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgba(0,0,0,0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+#custom-cursor-ring.expanded {
+  width: 64px;
+  height: 64px;
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+  font-size: 10px;
+}
+
+/* Hide default cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+  body.custom-cursor-active,
+  body.custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
 /* ── Reduced motion fallback ── */
 @media (prefers-reduced-motion: reduce) {
   .noise-overlay::after { display: none; }
@@ -160,5 +244,9 @@ body.loaded {
   .spinning-object { animation: none; transform: rotateY(35deg) rotateX(-15deg); }
   .scatter-float { animation: none; }
   .section-reveal { opacity: 1; transform: none; }
+  .marquee-ticker { animation: none; }
+  .open-to-work-dot { animation: none; }
+  .scroll-arrow { animation: none; }
+  .scroll-indicator { opacity: 1 !important; animation: none !important; }
   body { opacity: 1; }
 }

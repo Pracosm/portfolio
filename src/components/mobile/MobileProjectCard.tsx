@@ -11,7 +11,11 @@ interface Props {
 
 export function MobileProjectCard({ project, index }: Props) {
   return (
-    <Link href={`/projects/${project.slug}`}>
+    <Link
+      href={project.externalUrl || `/projects/${project.slug}`}
+      target={project.externalUrl ? "_blank" : undefined}
+      rel={project.externalUrl ? "noopener noreferrer" : undefined}
+    >
     <motion.article
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
