@@ -237,6 +237,36 @@ body.loaded {
   }
 }
 
+/* ── Orbit loader (custom, loaders.wtf-inspired) ── */
+.orbit-loader {
+  position: relative;
+  display: inline-block;
+}
+.orbit-loader .orbit-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--orbit-dot, 7px);
+  height: var(--orbit-dot, 7px);
+  margin: calc(var(--orbit-dot, 7px) / -2) 0 0 calc(var(--orbit-dot, 7px) / -2);
+  border-radius: 50%;
+  transform-origin: 50% 50%;
+  animation: orbit-spin 1.15s cubic-bezier(0.5, 0, 0.5, 1) infinite,
+             orbit-tint 1.15s ease-in-out infinite;
+}
+.orbit-loader .orbit-dot-2 { animation-delay: -0.383s; }
+.orbit-loader .orbit-dot-3 { animation-delay: -0.766s; }
+
+@keyframes orbit-spin {
+  0%   { transform: rotate(0deg)   translateX(calc(50% + var(--orbit-dot, 7px))) scale(0.65); }
+  50%  { transform: rotate(180deg) translateX(calc(50% + var(--orbit-dot, 7px))) scale(1); }
+  100% { transform: rotate(360deg) translateX(calc(50% + var(--orbit-dot, 7px))) scale(0.65); }
+}
+@keyframes orbit-tint {
+  0%, 100% { background: var(--orbit-from, #1a1a1a); }
+  50%      { background: var(--orbit-to, #6B6FA3); }
+}
+
 /* ── Reduced motion fallback ── */
 @media (prefers-reduced-motion: reduce) {
   .noise-overlay::after { display: none; }
@@ -249,4 +279,9 @@ body.loaded {
   .scroll-arrow { animation: none; }
   .scroll-indicator { opacity: 1 !important; animation: none !important; }
   body { opacity: 1; }
+  /* Freeze the orbit loader into a static tinted triad */
+  .orbit-loader .orbit-dot { animation: none; background: var(--orbit-to, #6B6FA3); }
+  .orbit-loader .orbit-dot-1 { transform: rotate(0deg)   translateX(calc(50% + var(--orbit-dot, 7px))); }
+  .orbit-loader .orbit-dot-2 { transform: rotate(120deg) translateX(calc(50% + var(--orbit-dot, 7px))); }
+  .orbit-loader .orbit-dot-3 { transform: rotate(240deg) translateX(calc(50% + var(--orbit-dot, 7px))); }
 }
