@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HalftoneBlobs } from "../shared/HalftoneBlobs";
+import Loader from "../shared/Loader";
 
 const CarModel = lazy(() =>
   import("./CarModel").then((m) => ({ default: m.CarModel }))
@@ -126,7 +127,7 @@ export function SpotlightStage() {
             <Suspense
               fallback={
                 <div className="w-full h-full flex items-center justify-center">
-                  <div className="w-8 h-8 border-2 border-black/10 border-t-black/30 rounded-full animate-spin" />
+                  <Loader size={44} label="Loading 3D model" />
                 </div>
               }
             >

@@ -10,6 +10,7 @@ import {
 } from "framer-motion";
 import Link from "next/link";
 import { HalftoneBlobs } from "../shared/HalftoneBlobs";
+import Loader from "../shared/Loader";
 import { projects } from "@/content/projects";
 
 const CarModel = lazy(() =>
@@ -192,7 +193,7 @@ export function DesktopProjects() {
                       <Suspense
                         fallback={
                           <div className="w-full h-full flex items-center justify-center">
-                            <div className="w-10 h-10 border-2 border-black/10 border-t-black/30 rounded-full animate-spin" />
+                            <Loader size={48} label="Loading 3D model" />
                           </div>
                         }
                       >

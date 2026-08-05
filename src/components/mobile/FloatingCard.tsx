@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef, lazy, Suspense } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, PanInfo } from "framer-motion";
 import { HalftoneBlobs } from "../shared/HalftoneBlobs";
+import Loader from "../shared/Loader";
 
 const CarModel = lazy(() =>
   import("./CarModel").then((m) => ({ default: m.CarModel }))
@@ -112,7 +113,7 @@ export function FloatingCard() {
             <Suspense
               fallback={
                 <div className="w-full h-full flex items-center justify-center">
-                  <div className="w-8 h-8 border-2 border-white/15 border-t-white/35 rounded-full animate-spin" />
+                  <Loader size={40} tone="light" label="Loading 3D model" />
                 </div>
               }
             >
