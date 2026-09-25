@@ -84,7 +84,7 @@ while t < END:
     t += B; step += 1
 put(impact(), DROP, 1.2)
 for c in ev.get('whoosh', []): put(whoosh(.35), c - .3, .9)
-for c in ev.get('impact', []): put(impact(), c, .8)
+for c in ev.get('impact', []): put(impact(), *(c if isinstance(c, list) else [c, .8]))
 for c in ev.get('shutter', []): put(shutter(), c, 1.0)
 # outro tail
 put(impact(), END, .6)
