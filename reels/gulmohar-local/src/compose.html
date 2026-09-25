@@ -1,0 +1,218 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: Anton; src: url(node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2); }
+@font-face { font-family: Marker; src: url(node_modules/@fontsource/permanent-marker/files/permanent-marker-latin-400-normal.woff2); }
+@font-face { font-family: Deva; font-weight: 800; src: url(node_modules/@fontsource/noto-sans-devanagari/files/noto-sans-devanagari-devanagari-800-normal.woff2); }
+@font-face { font-family: Deva; font-weight: 800; src: url(node_modules/@fontsource/noto-sans-kannada/files/noto-sans-kannada-kannada-800-normal.woff2); unicode-range: U+0C80-0CFF; }
+@font-face { font-family: Mono; font-weight: 700; src: url(node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2); }
+:root { --flame: #e8492a; --marigold: #f7b32b; --ink: #231a26; --paper: #f4ede1; --purple: #8a3fb0; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#stage { position: absolute; inset: 0; overflow: hidden; }
+.layer { position: absolute; inset: 0; }
+#bg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; transform-origin: 50% 45%; }
+#bgblur { position: absolute; inset: -40px; width: 1160px; height: 2000px; object-fit: cover; filter: blur(28px) brightness(.55) saturate(1.2); display: none; }
+#vignette { background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0,0,0,.55) 100%),
+  linear-gradient(to bottom, rgba(0,0,0,.35), transparent 18%, transparent 70%, rgba(0,0,0,.45)); }
+#grain { opacity: .08; mix-blend-mode: overlay; background-size: 256px 256px; }
+#flash { background: #fff; opacity: 0; }
+#cap { position: absolute; left: 60px; right: 60px; top: 520px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.line { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 22px; }
+.w { font-family: Anton, Impact, sans-serif; font-size: 124px; line-height: 1.02; color: #fff; text-transform: uppercase; letter-spacing: 1px;
+  -webkit-text-stroke: 14px #000; paint-order: stroke fill; text-shadow: 0 10px 0 rgba(0,0,0,.35); display: inline-block; transform-origin: 50% 70%; }
+.w.hl { color: var(--marigold); }
+.w.box { color: #fff; background: var(--flame); -webkit-text-stroke: 0; padding: 4px 22px 0; border-radius: 10px; transform: rotate(-2deg); text-shadow: none; box-shadow: 0 10px 0 rgba(0,0,0,.35); }
+.w.pbox { color: #fff; background: var(--purple); -webkit-text-stroke: 0; padding: 4px 22px 0; border-radius: 10px; text-shadow: none; box-shadow: 0 10px 0 rgba(0,0,0,.35); }
+.w.emo { -webkit-text-stroke: 0; text-shadow: none; font-family: 'Noto Color Emoji'; font-size: 104px; }
+.small .w { font-size: 84px; -webkit-text-stroke: 11px #000; }
+.tiny .w { font-size: 56px; -webkit-text-stroke: 8px #000; letter-spacing: 3px; }
+.sub { font-family: Marker; font-size: 64px; color: #fff; -webkit-text-stroke: 9px #000; paint-order: stroke fill; transform: rotate(-3deg); margin-top: 14px; }
+.deva { font-family: Deva; font-weight: 800; font-size: 96px; color: #fff; -webkit-text-stroke: 10px var(--ink); paint-order: stroke fill; margin-bottom: 4px; }
+#tag { position: absolute; left: 50%; bottom: 330px; transform: translateX(-50%); font-family: Mono; font-weight: 700; font-size: 34px; color: #fff;
+  background: rgba(20,14,24,.72); padding: 12px 26px; border-radius: 999px; border: 3px solid rgba(255,255,255,.25); white-space: nowrap; }
+#tag b { color: var(--marigold); }
+#chip { position: absolute; left: 60px; top: 190px; font-family: Anton; font-size: 46px; color: var(--ink); background: var(--marigold); padding: 8px 20px 4px; border-radius: 8px; transform: rotate(-3deg); letter-spacing: 2px; }
+.pol { position: absolute; width: 470px; background: #fbfaf6; padding: 26px 26px 0; border-radius: 6px;
+  box-shadow: 0 30px 60px rgba(0,0,0,.55), 0 2px 0 rgba(0,0,0,.1); transform-origin: 50% 50%; }
+.pol .ph { width: 100%; height: 560px; object-fit: cover; display: block; background: #111; border-radius: 2px; }
+.pol .pc { font-family: Marker; font-size: 44px; color: #2a2230; text-align: center; height: 130px; line-height: 130px; }
+#tweet { position: absolute; left: 90px; width: 900px; top: 420px; transform-origin: 50% 0; background: #fbfaf6; padding: 28px 28px 0; border-radius: 8px; box-shadow: 0 40px 80px rgba(0,0,0,.6); }
+#tweet img { width: 100%; display: block; border-radius: 3px; }
+#tweet .pc { font-family: Marker; font-size: 52px; color: #2a2230; text-align: center; height: 140px; line-height: 140px; }
+.stat { position: absolute; font-family: Anton; font-size: 92px; color: #fff; -webkit-text-stroke: 12px #000; paint-order: stroke fill; white-space: nowrap; }
+.stat .e { font-family: 'Noto Color Emoji'; -webkit-text-stroke: 0; font-size: 80px; }
+#url { position: absolute; left: 50%; top: 1130px; transform: translateX(-50%); font-family: Mono; font-weight: 700; font-size: 50px; color: var(--ink); background: var(--paper);
+  padding: 22px 38px; border-radius: 18px; white-space: nowrap; box-shadow: 0 14px 0 var(--flame); }
+#handle { position: absolute; left: 50%; top: 1290px; transform: translateX(-50%); font-family: Anton; font-size: 64px; color: #fff; letter-spacing: 2px; white-space: nowrap; -webkit-text-stroke: 9px #000; paint-order: stroke fill; }
+#bar { position: absolute; left: 0; top: 0; height: 10px; background: linear-gradient(90deg, var(--flame), var(--marigold)); }
+</style></head>
+<body>
+<div id="stage">
+  <img id="bgblur"><img id="bg">
+  <div id="vignette" class="layer"></div>
+  <div id="grain" class="layer"></div>
+  <div id="fx" class="layer"></div>
+  <div id="cap"></div>
+  <div id="chip" hidden></div>
+  <div id="tag" hidden>▶ <b>gulmohar-local</b>.pages.dev</div>
+  <div id="flash" class="layer"></div>
+  <div id="bar"></div>
+</div>
+<script>
+// ---------- grain texture ----------
+(() => { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'), d = g.createImageData(256, 256);
+  let s = 7; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < d.data.length; i += 4) { const v = r() * 255; d.data[i] = d.data[i+1] = d.data[i+2] = v; d.data[i+3] = 255; }
+  g.putImageData(d, 0, 0); document.getElementById('grain').style.backgroundImage = `url(${c.toDataURL()})`; })();
+
+const FPS = 30, BEAT = 0.5;
+let MAN = {};           // shot -> frame count (set from node)
+const $ = id => document.getElementById(id);
+const ease = x => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+const back = x => { x = Math.min(1, Math.max(0, x)); const c = 2.2; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const src = (shot, f) => { const n = MAN[shot] || 1; f = Math.max(0, Math.min(n - 1, Math.floor(f))); return `shots/${shot}/${String(f).padStart(4, '0')}.jpg`; };
+
+// caption markup: '/' = new line, *word* = highlight, [word] = flame box, {word} = purple box, emoji auto-detected
+function capHTML(text, cls = '') {
+  let k = 0;
+  return text.split('/').map(line => `<div class="line ${cls}">` + line.trim().split(/\s+/).map(tok => {
+    let c = 'w', t = tok, tail = '';
+    const pm = t.match(/^(.*?[*\]}])([.,!…?]+)$/); if (pm) { t = pm[1]; tail = pm[2]; }
+    if (/^\*.*\*$/.test(t)) { c += ' hl'; t = t.slice(1, -1); }
+    else if (/^\[.*\]$/.test(t)) { c += ' box'; t = t.slice(1, -1); }
+    else if (/^\{.*\}$/.test(t)) { c += ' pbox'; t = t.slice(1, -1); }
+    if (/\p{Extended_Pictographic}/u.test(t)) c += ' emo';
+    return `<span class="${c}" data-k="${k++}">${t.replace(/_/g, ' ')}${tail}</span>`;
+  }).join('') + '</div>').join('');
+}
+
+// ---------- timeline ----------
+// seg: t0,t1, shot, from (src frame), speed, cap, capStep (s per word; 0 = all at once), sub, deva, chip, kind
+const SEG = [
+  { t0: 0.0, t1: 2.0, shot: 'm_planet', from: 0, speed: 1, chip: 'POV:', cap: 'I LEFT [OPUS_5.5] / RUNNING / OVERNIGHT 😴', capStep: .16 },
+  { t0: 2.0, t1: 3.75, shot: 'm_dive', from: 0, speed: 1.25, cap: 'WOKE UP / TO *THIS* 🤯', capStep: .12, punch: 1.25 },
+  { t0: 3.75, t1: 5.0, shot: 'm_platform', from: 8, speed: 1.2, deva: 'मुंबई', cap: '*MUMBAI* 🌺 / WESTERN LINE', capStep: 0 },
+  { t0: 5.0, t1: 6.5, shot: 'm_ride', from: 5, speed: 1.2, cap: 'RIDE THE / [LOCAL] 🚆', capStep: .12, sub: 'doorway only. obviously.' },
+  { t0: 6.5, t1: 8.0, shot: 'm_auto', from: 10, speed: 1.3, cap: 'PRESS V → / AN [AUTO] / PULLS UP 🛺', capStep: .1 },
+  { t0: 8.0, t1: 9.0, shot: 'm_wheel', from: 10, speed: 1.4, cap: '*GIANT_WHEEL* 🎡 / OVER CHOWPATTY', capStep: 0, cls: 'small' },
+  { t0: 9.0, t1: 10.0, shot: 'm_rain', from: 10, speed: 1.4, cap: '[MONSOON] / MODE ☔', capStep: 0 },
+  { t0: 10.0, t1: 11.0, shot: 'm_night', from: 10, speed: 1.4, cap: 'DAY → *NIGHT* 🌙', capStep: 0, cls: 'small' },
+  { t0: 11.0, t1: 12.5, kind: 'instax', cap: 'ALL ON ITS / OWN *TINY* / *PLANET* 🪐', capStep: .1 },
+  { t0: 12.5, t1: 14.5, shot: 'b_planet', from: 0, speed: 1.1, deva: 'ಬೆಂಗಳೂರು', cap: 'AND THEN… / {BENGALURU} 💜', capStep: .14, punch: 1.2 },
+  { t0: 14.5, t1: 16.0, shot: 'b_platform', from: 10, speed: 1.3, cap: 'NAMMA METRO / *PURPLE* LINE 🚇', capStep: .12 },
+  { t0: 16.0, t1: 17.0, shot: 'b_lake', from: 10, speed: 1.4, cap: '{JACARANDAS} 💜', capStep: 0, cls: 'small' },
+  { t0: 17.0, t1: 18.0, shot: 'b_avenue', from: 10, speed: 1.4, cap: '4PM *RAIN*. / ACCURATE.', capStep: 0, cls: 'small' },
+  { t0: 18.0, t1: 19.0, shot: 'b_night', from: 10, speed: 1.4, cap: 'NPCs · TRAFFIC / *CHAI* ☕', capStep: 0, cls: 'small' },
+  { t0: 19.0, t1: 22.5, kind: 'tweet', bgshot: 'm_planet', cap: 'I TWEETED IT… / IT *WENT_VIRAL* 📈', capStep: .12 },
+  { t0: 22.5, t1: 24.5, kind: 'montage', cap: '[ONE] INSTRUCTION. / ONE NIGHT.', capStep: .25 },
+  { t0: 24.5, t1: 28.0, kind: 'cta', bgshot: 'b_planet', cap: 'PLAY IT IN / YOUR *BROWSER*', capStep: .12 },
+];
+const TOTAL = 28.0, MSTART = 22.5, BIG = [2, 12.5, 19];
+const MONTAGE = [['m_ride', 40], ['b_lake', 40], ['m_auto', 50], ['b_platform', 60], ['m_rain', 45], ['m_wheel', 40], ['m_night', 45], ['b_platform', 20]];
+const INSTAX = [['m_platform', 70, 'charni road', -8, -250, 820], ['m_night', 40, 'after dark', 7, 250, 900], ['m_ride', 40, 'western line', -2, 0, 1010]];
+const CUTS = SEG.map(s => s.t0).concat(MONTAGE.map((_, i) => MSTART + i * .25).slice(1));
+window.__cuts = CUTS;
+
+let lastKey = '';
+async function render(t) {
+  const seg = SEG.find(s => t >= s.t0 && t < s.t1) || SEG[SEG.length - 1];
+  const lt = t - seg.t0, dur = seg.t1 - seg.t0;
+  const bg = $('bg'), blur = $('bgblur'), fx = $('fx');
+  let bgSrc = null, blurSrc = null;
+  fx.innerHTML = '';
+  $('tag').hidden = true;
+  // beat punch: quick zoom kick on every beat, bigger on segment start
+  const bl = (t % BEAT) / BEAT;
+  let zoom = 1.0 + 0.035 * Math.exp(-bl * 6) + (seg.punch ? (seg.punch - 1) * Math.exp(-lt * 5) : 0.06 * Math.exp(-lt * 8));
+  let rot = Math.sin(lt * 40) * 0.6 * Math.exp(-lt * 10);
+  let shakeX = Math.sin(lt * 57) * 14 * Math.exp(-lt * 9), shakeY = Math.cos(lt * 49) * 10 * Math.exp(-lt * 9);
+  blur.style.display = 'none'; bg.style.display = 'block';
+
+  if (seg.shot) {
+    bgSrc = src(seg.shot, seg.from + lt * FPS * seg.speed);
+    zoom += lt * 0.03; // slow push
+    $('tag').hidden = false;
+  } else if (seg.kind === 'instax') {
+    bg.style.display = 'none'; blur.style.display = 'block'; blurSrc = src('m_planet', 40 + lt * 30);
+    INSTAX.forEach(([shot, f, label, r, x, y], i) => {
+      const ti = lt - i * BEAT; if (ti < 0) return;
+      const p = back(ti / .3), d = document.createElement('div'); d.className = 'pol';
+      d.style.left = (540 - 235 + x) + 'px'; d.style.top = (y - 360) + 'px';
+      d.style.transform = `translateY(${(1 - p) * 900}px) rotate(${r + (1 - p) * 25}deg) scale(${.9 + .1 * p})`;
+      d.innerHTML = `<img class="ph" src="${src(shot, f)}" style="filter:brightness(${1 + 1.5 * Math.max(0, 1 - ti / .15)})"><div class="pc">${label}</div>`;
+      fx.appendChild(d);
+    });
+  } else if (seg.kind === 'tweet') {
+    bg.style.display = 'none'; blur.style.display = 'block'; blurSrc = src(seg.bgshot, 20 + lt * 20);
+    const p = back(lt / .35), d = document.createElement('div'); d.id = 'tweet';
+    d.style.transform = `translateY(${(1 - p) * 1400 + Math.max(0, lt - .35) * -20}px) rotate(${-3 + (1 - p) * -12}deg) scale(${.68 + Math.min(lt, 3) * .01})`;
+    d.innerHTML = `<img src="assets/tweet.png"><div class="pc">the tweet. (it blew up)</div>`;
+    fx.appendChild(d);
+    const stats = [['7.3K', 'VIEWS', '👀', 1.2, 70, 1400, -6], ['144', 'LIKES', '❤️', 1.7, 430, 1505, 4], ['65', 'SAVES', '🔖', 2.2, 110, 1610, -3]];
+    stats.forEach(([num, lab, e, at, x, y, r]) => {
+      const ti = lt - at; if (ti < 0) return;
+      const p = back(ti / .25), s = document.createElement('div'); s.className = 'stat';
+      const nv = parseFloat(num), cnt = Math.min(1, ti / .45), shown = num.includes('K') ? (nv * cnt).toFixed(1) + 'K' : Math.round(nv * cnt);
+      s.innerHTML = `<span class="e">${e}</span> ${shown} ${lab}`;
+      s.style.left = x + 'px'; s.style.top = y + 'px'; s.style.transform = `scale(${p}) rotate(${r}deg)`;
+      fx.appendChild(s);
+    });
+    zoom = 1; rot = 0; shakeX = shakeY = 0;
+  } else if (seg.kind === 'montage') {
+    const i = Math.min(MONTAGE.length - 1, Math.floor(lt / .25)), [shot, f] = MONTAGE[i];
+    bgSrc = src(shot, f + (lt - i * .25) * FPS * 1.5);
+    zoom = 1.12 - ((lt % .25) / .25) * .08; rot = (i % 2 ? 1 : -1) * 1.2;
+  } else if (seg.kind === 'cta') {
+    bgSrc = src(seg.bgshot, 20 + lt * 18); zoom = 1.05 + lt * .02;
+    bg.style.filter = 'brightness(.6) saturate(1.1)';
+    const p = back((lt - .6) / .3), u = document.createElement('div'); u.id = 'url';
+    u.textContent = 'gulmohar-local.pages.dev'; u.style.transform = `translateX(-50%) scale(${Math.max(0, p)})`;
+    fx.appendChild(u);
+    const p2 = back((lt - 1.1) / .3), h = document.createElement('div'); h.id = 'handle';
+    h.textContent = 'MADE BY @PRACOSM · LINK IN BIO'; h.style.transform = `translateX(-50%) scale(${Math.max(0, p2)})`; h.style.fontSize = '54px';
+    fx.appendChild(h);
+  }
+  if (seg.kind !== 'cta') bg.style.filter = '';
+  bg.style.transform = `translate(${shakeX}px, ${shakeY}px) scale(${zoom}) rotate(${rot}deg)`;
+
+  // captions
+  const key = SEG.indexOf(seg);
+  if (key + '' !== lastKey) {
+    let h = '';
+    if (seg.deva) h += `<div class="deva">${seg.deva}</div>`;
+    h += capHTML(seg.cap, seg.cls || '');
+    if (seg.sub) h += `<div class="sub">${seg.sub}</div>`;
+    $('cap').innerHTML = h; lastKey = key + '';
+    $('cap').style.top = seg.kind === 'tweet' ? '120px' : seg.kind === 'instax' ? '230px' : seg.kind === 'cta' ? '560px' : '470px';
+  }
+  const words = [...document.querySelectorAll('#cap .w')];
+  words.forEach((w, k) => {
+    const at = seg.capStep ? k * seg.capStep : 0, ti = lt - at;
+    const p = ti < 0 ? 0 : back(ti / .16);
+    const base = w.classList.contains('box') ? -2 : 0;
+    w.style.opacity = ti < 0 ? 0 : 1;
+    w.style.transform = `scale(${0.4 + 0.6 * p}) rotate(${base + (1 - Math.min(1, p)) * 8}deg)`;
+  });
+  const extra = document.querySelectorAll('#cap .deva, #cap .sub');
+  extra.forEach((e, i) => { const ti = lt - (i === 0 && seg.deva ? 0 : .5); const p = ti < 0 ? 0 : back(ti / .2); e.style.opacity = ti < 0 ? 0 : 1; e.style.transform = `scale(${p}) rotate(-3deg)`; });
+  const chip = $('chip'); chip.hidden = !seg.chip; if (seg.chip) chip.textContent = seg.chip;
+
+  // flash on cuts
+  let fl = 0; for (const c of CUTS) { const m = c > MSTART && c < MSTART + 2.1, L = m ? .08 : .2; const d = t - c; if (d >= 0 && d < L) fl = Math.max(fl, (1 - d / L) * (BIG.includes(c) ? 1 : m ? .3 : .55)); }
+  $('flash').style.opacity = fl;
+  $('bar').style.width = (t / TOTAL * 1080) + 'px';
+
+  const waits = [];
+  if (bgSrc && bg.getAttribute('src') !== bgSrc) { bg.src = bgSrc; waits.push(bg.decode().catch(() => {})); }
+  if (blurSrc && blur.getAttribute('src') !== blurSrc) { blur.src = blurSrc; waits.push(blur.decode().catch(() => {})); }
+  document.querySelectorAll('#fx img').forEach(i => waits.push(i.decode().catch(() => {})));
+  await Promise.all(waits);
+  await document.fonts.ready;
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+}
+window.render = render;
+window.setup = man => { MAN = man; };
+window.SEG = SEG;
+</script>
+</body></html>
