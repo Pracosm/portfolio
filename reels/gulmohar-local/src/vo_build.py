@@ -1,4 +1,6 @@
-import json, subprocess
+import json, subprocess, sys
+VOICE = sys.argv[1] if len(sys.argv) > 1 else 'en-US-AndrewMultilingualNeural'
+RATE = sys.argv[2] if len(sys.argv) > 2 else '+12%'
 FF='/usr/local/lib/python3.11/dist-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2'
 L=json.load(open('vo_lines.json')); starts=[t for t,_ in L]+[27.6]
 def dur(f):
@@ -6,7 +8,7 @@ def dur(f):
     d=[x for x in out.split('\n') if 'Duration' in x][0].split()[1].rstrip(','); h,m,s=d.split(':'); return float(s)+60*float(m)
 plan=[]; prev_end=0
 for i,(t,txt) in enumerate(L):
-    subprocess.run(['python3','tts.py','en-IN-PrabhatNeural',txt,f'vo/l{i:02d}.mp3','+20%','+2Hz'],check=True)
+    subprocess.run(['python3','tts.py',VOICE,txt,f'vo/l{i:02d}.mp3',RATE,'+0Hz'],check=True)
     subprocess.run([FF,'-loglevel','error','-y','-i',f'vo/l{i:02d}.mp3','-af','silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse','-ar','44100','-ac','1',f'vo/l{i:02d}.wav'],check=True)
     d=dur(f'vo/l{i:02d}.wav'); st=max(t,prev_end+0.06); room=starts[i+1]+0.35-st
     tempo=min(1.25,max(1.0,d/room)); nd=d/tempo
